@@ -94,8 +94,19 @@ class ThreadedTask(threading.Thread):
                     if last_was_push:
                         continue
 
-                    window.event_generate("<<rcm>>", when="tail")
-                    
+                    if last_state == False:
+                        addOutputText(tk_debug_output,
+                                      "RCM device connected!\n")
+                        last_state = True
+                        last_was_non_rcm = False
+                        non_rcm_prev = False
+
+                    tk_push_button.configure(default="active")
+                    tk_push_button.configure(state=ACTIVE)
+                    status_icon = get_image('assets/s_ready.png')
+                    if last_state == False or 1:
+                        panel.configure(image=status_icon)
+                    last_state = True
                 except IOError:
                     if last_state == True:
                         addOutputText(tk_debug_output,
@@ -182,22 +193,6 @@ def show_non_rcm_warning(evt):
     app.warn(title="Not in recovery mode!",
              message="You have just connected a Nintendo Switch that isn't in recovery mode.\n\nPlease boot to RCM.")
 
-def on_rcm_connect(evt):
-    global last_state, last_was_non_rcm, non_rcm_prev, panel
-
-    if last_state == False:
-        addOutputText(tk_debug_output,
-                        "RCM device connected!\n")
-        last_state = True
-        last_was_non_rcm = False
-        non_rcm_prev = False
-
-    tk_push_button.configure(default="active")
-    tk_push_button.configure(state=ACTIVE)
-    status_icon = get_image('assets/s_ready.png')
-    if last_state == False or 1:
-        panel.configure(image=status_icon)
-    last_state = True
 
 def push():
     global payload_type, img_success, last_was_push
@@ -226,7 +221,6 @@ def push():
         for ele in unique(existing_list):
             if ele == '\n':
                 continue
-
             ele = ele.strip('\n')
             f.write(ele + "\n")
 
@@ -392,13 +386,11 @@ def main():
     global parser, arguments, payload_type, window, app, threaded_task
     queues = queue.Queue()
     threaded_task = ThreadedTask(queues)
-    threaded_task.start()
+    
 
     window = Tk()
     window.resizable(False, False)
     window.bind("<<nrcm>>", show_non_rcm_warning)
-    window.bind("<<rcm>>", on_rcm_connect)
-
 
     parser = argparse.ArgumentParser(
         description='launcher for the fusee gelee exploit (by @ktemkin)')
@@ -407,6 +399,7 @@ def main():
     app = CrystalRCM(window)
     app.grid(row=0, column=0)
     window.mainloop()
+    threaded_task.start()
 
 
 if __name__ == '__main__':
