@@ -67,8 +67,8 @@ class ThreadedTask(threading.Thread):
             if stop_event.is_set():
                 break
 
-            # if not tk_debug_output or not tk_push_button:
-            #     continue
+            # i tried doing this all using events but it didn't work
+            # no idea how it's modifying the UI in a different thread, don't ask 😳
 
             norm_switch = fusee_launcher.cr_find_device(
                 vid=NORMAL_VID, pid=NORMAL_PID) is not None
@@ -90,6 +90,7 @@ class ThreadedTask(threading.Thread):
             elif rcm_switch:
                 try:
                     fusee_launcher.RCMHax()._find_device()
+                    window.event_generate("<<rcm_connect>>", when="tail")
 
                     if last_was_push:
                         continue
@@ -250,7 +251,7 @@ def push():
         panel.configure(image=img_success)
         panel.update()
         addOutputText(tk_debug_output, "Launch success!\n")
-
+        
         messagebox.showinfo(
             title="Success!", message="Pushed payload successfully!")
 
@@ -293,6 +294,9 @@ def unique(list):
     """
     seen = set()
     return [x for x in list if not (x in seen or seen.add(x))]
+
+def _on_rcm_connect(evt, state):
+    print("Test")
 class CrystalRCM(Frame):
     def __init__(self, parent, *args, **kwargs):
         Frame.__init__(self, parent, *args, **kwargs)
@@ -391,7 +395,7 @@ def main():
     window = Tk()
     window.resizable(False, False)
     window.bind("<<nrcm>>", show_non_rcm_warning)
-
+    window.bind("<<rcm_connect>>", _on_rcm_connect)
     parser = argparse.ArgumentParser(
         description='launcher for the fusee gelee exploit (by @ktemkin)')
     arguments = parser.parse_args()
