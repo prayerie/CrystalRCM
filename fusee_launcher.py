@@ -317,9 +317,7 @@ def try_push(target_payload, arguments):
         device_id = switch.read_device_id()
         print("Found a Tegra with Device ID: {}".format(device_id))
     except OSError as e:
-        # Raise the exception only if we're not being permissive about ID reads.
-        if not arguments.permissive_id:
-            return 4
+        return 4
 
 
     # Prefix the image with an RCM command, so it winds up loaded into memory

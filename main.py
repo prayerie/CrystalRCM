@@ -1,9 +1,8 @@
 import os
 import io
-from tkinter import ACTIVE, DISABLED, END, NORMAL, Frame, Label, Listbox, Text, Tk, ttk
+from tkinter import ACTIVE, DISABLED, END, NORMAL, Frame, Label, Text, Tk, ttk
 from tkinter import filedialog as fd
 from tkinter import messagebox
-from tkinter import Toplevel
 from tkinter import Image as TKImage, PhotoImage
 import argparse
 import fusee_launcher
@@ -12,9 +11,9 @@ import time
 import queue
 
 from payload_signature import BRICCMII, FUSEE, HEKATE_LOCKPICK, REI, SWITCHBREW_STRING
+from tk_combobox import Combobox
 
 out = ""
-
 
 global arguments
 global img_success
@@ -31,8 +30,11 @@ tk_debug_output = None
 
 last_was_push = False
 last_was_non_rcm = False
+hide_warning = False
 
 payload_type = -1
+
+recent_files = []
 
 threaded_task = None
 stop_event = threading.Event()
@@ -58,17 +60,15 @@ class ThreadedTask(threading.Thread):
         self.queue = queue
 
     def run(self):
-        global status_icon, tk_debug_output, tk_push_button, last_was_push, last_was_non_rcm, last_state
+        global status_icon, tk_debug_output, tk_push_button
+        global last_was_push, last_was_non_rcm, last_state
         last_state = False
-        non_rcm_prev = False
+        last_was_non_rcm = False
 
         while True:
             # quit gracefully on close
             if stop_event.is_set():
                 break
-
-            # i tried doing this all using events but it didn't work
-            # no idea how it's modifying the UI in a different thread, don't ask 😳
 
             norm_switch = fusee_launcher.cr_find_device(
                 vid=NORMAL_VID, pid=NORMAL_PID) is not None
@@ -77,97 +77,24 @@ class ThreadedTask(threading.Thread):
 
             if norm_switch:
                 if not last_was_non_rcm:
-                    addOutputText(tk_debug_output,
-                                  "Non-RCM Switch connected.\n")
-                    if not non_rcm_prev and app is not None:
-                        # we're on a different thread so we need to use an event rather than
-                        # directly showing a dialog box, otherwise we get a SIGTRAP
-                        window.event_generate("<<nrcm>>", when="tail")
-                    last_was_non_rcm = True
-                    non_rcm_prev = True
-                    status_icon = get_image('assets/s_waiting.png')
-                    panel.configure(image=status_icon)
+                    window.event_generate("<<nrcm>>", when="tail")
+                    
             elif rcm_switch:
                 try:
                     fusee_launcher.RCMHax()._find_device()
-                    window.event_generate("<<rcm_connect>>", when="tail")
-                    print("run: thread %d" % threading.get_ident())
                     if last_was_push:
                         continue
-
-                    if last_state == False:
-                        addOutputText(tk_debug_output,
-                                      "RCM device connected!\n")
-                        last_state = True
-                        last_was_non_rcm = False
-                        non_rcm_prev = False
-
-                    tk_push_button.configure(default="active")
-                    tk_push_button.configure(state=ACTIVE)
-                    status_icon = get_image('assets/s_ready.png')
-                    if last_state == False or 1:
-                        panel.configure(image=status_icon)
-                    last_state = True
+                    window.event_generate("<<rcm_connect>>", when="tail")                    
                 except IOError:
-                    if last_state == True:
-                        addOutputText(tk_debug_output,
-                                      "RCM device disconnected!\n")
-                        last_state = False
-                    last_was_non_rcm = False
-                    tk_push_button.configure(default="disabled")
-                    tk_push_button.configure(state=DISABLED)
-                    status_icon = get_image('assets/s_waiting.png')
-                    panel.configure(image=status_icon)
-                    self.last_state = False
+                    window.event_generate("<<rcm_fail>>", when="tail")
+                    
             else:
-                last_was_push = False
-                if last_state and not last_was_push:
-                    addOutputText(tk_debug_output,
-                                  "RCM device disconnected!\n")
-                    last_state = False
-                if last_was_non_rcm:
-                    addOutputText(tk_debug_output,
-                                  "Non-RCM Switch disconnected?\n")
-                    last_was_non_rcm = False
+                window.event_generate("<<other_fail>>", when="tail")
+                
 
             time.sleep(0.3)
 
 
-class Combobox(ttk.Combobox):
-    def _tk(self, cls, parent):
-        obj = cls(parent)
-        obj.destroy()
-        if cls is Toplevel:
-            obj._w = self.tk.call('ttk::combobox::PopdownWindow', self)
-        else:
-            obj._w = '{}.{}'.format(parent._w, 'f.l')
-        return obj
-
-    def __init__(self, parent, **kwargs):
-        super().__init__(parent, **kwargs)
-        self.popdown = self._tk(Toplevel, parent)
-        self.listbox = self._tk(Listbox, self.popdown)
-
-        self.bind("<KeyPress>", self.on_keypress, '+')
-        self.listbox.bind("<Up>", self.on_keypress)
-
-    def on_keypress(self, event):
-        if event.widget == self:
-            state = self.popdown.state()
-
-            if state == 'withdrawn' \
-                    and event.keysym not in ['BackSpace', 'Up']:
-                self.event_generate('<Button-1>')
-                self.after(0, self.focus_set)
-
-            if event.keysym == 'Down':
-                self.after(0, self.listbox.focus_set)
-
-        else:  # self.listbox
-            curselection = self.listbox.curselection()
-
-            if event.keysym == 'Up' and curselection[0] == 0:
-                self.popdown.withdraw()
 
 
 __location__ = os.path.realpath(
@@ -189,10 +116,65 @@ def addOutputText(textWidget: Text, content: str):
 def local(name: str):
     return os.path.join(__location__, name)
 
+def set_payload():
+    """Open a file chooser dialogue, and then scroll the ComboBox to the end.
+    """
+    global tk_debug_output
+    filename = fd.askopenfilename()
+    addOutputText(tk_debug_output, f"Set payload: {filename}")
+    tk_combo_box.set(filename)
+    tk_combo_box.xview(END)
+    
 
-def show_non_rcm_warning(evt):
-    app.warn(title="Not in recovery mode!",
-             message="You have just connected a Nintendo Switch that isn't in recovery mode.\n\nPlease boot to RCM.")
+def unique(list):
+    """Make a list unique whilst preserving its order.
+
+    Args:
+        list ([type]): input list
+
+    Returns:
+        list: the processed list
+    """
+    seen = set()
+    return [x for x in list if not (x in seen or seen.add(x))]
+
+
+def get_payload_type(payload):
+    """0: Fusee
+    1: Hekate
+    2: ReiNX
+    3: briccMii
+    4: LockPickRCM
+    -1: other
+    """
+    header = payload[:5]
+    if header == FUSEE:
+        return 0
+    if header == REI:
+        return 2
+    if header == BRICCMII:
+        return 3
+    if header == HEKATE_LOCKPICK:
+        if SWITCHBREW_STRING in payload:
+            return 1
+        else:
+            return 4
+    return -1
+
+
+def on_combo_configure(event):
+    global recent_files
+    import tkinter.font as tkfont
+
+    font = tkfont.nametofont(str(event.widget.cget('font')))
+    width = font.measure(max(recent_files, key=len) + "0") - event.width
+    style = ttk.Style()
+    style.configure('TCombobox', postoffset=(0,0,width,0))
+
+def on_close():
+    stop_event.set()
+    threaded_task.join()
+    window.destroy()
 
 
 def push():
@@ -275,30 +257,78 @@ def push():
             title="Invalid device.", message=f"Invalid device.\nAre you trying to push to a Switch outside of recovery mode?")
     app.refresh()
 
+def _on_normal_switch_connect(evt, status=None):
+    global last_was_non_rcm, status_icon, panel
+    global hide_warning
+    if not hide_warning:
+        app.warn(title="Not in recovery mode!",
+                message="You have just connected a Nintendo Switch that isn't in recovery mode.\n\nPlease boot to RCM.")
+        hide_warning = True
+    if not last_was_non_rcm:
+        addOutputText(tk_debug_output,
+                                    "Non-RCM Switch connected.\n")
+    last_was_non_rcm = True
+    if not last_was_push:
+        status_icon = get_image('assets/s_waiting.png')
+    panel.configure(image=status_icon)
 
-def set_payload():
-    """Open a file chooser dialogue, and then scroll the ComboBox to the end.
-    """
-    filename = fd.askopenfilename()
-    tk_combo_box.set(filename)
-    tk_combo_box.xview(END)
+def _on_other_disconnect(evt, state=None):
+    global last_state, last_was_non_rcm
+    global tk_push_button, status_icon, panel
+    last_was_push = False
+    if last_state and not last_was_push:
+        addOutputText(tk_debug_output,
+                        "RCM device disconnected!\n")
+        tk_push_button.configure(default="disabled")
+        tk_push_button.configure(state=DISABLED)
+        status_icon = get_image('assets/s_waiting.png')
+        panel.configure(image=status_icon)
+        last_state = False
+    if last_was_non_rcm:
+        addOutputText(tk_debug_output,
+                        "Non-RCM Switch disconnected?\n")
+        last_was_non_rcm = False
 
-def unique(list):
-    """Make a list unique whilst preserving its order.
-
-    Args:
-        list ([type]): input list
-
-    Returns:
-        list: the processed list
-    """
-    seen = set()
-    return [x for x in list if not (x in seen or seen.add(x))]
+def _on_rcm_disconnect(evt, state=None):
+    global last_state, last_was_non_rcm
+    global tk_push_button, status_icon, panel
+    if last_state == True:
+        addOutputText(tk_debug_output,
+                        "RCM device disconnected!\n")
+    last_state = False
+    last_was_non_rcm = False
+    tk_push_button.configure(default="disabled")
+    tk_push_button.configure(state=DISABLED)
+    status_icon = get_image('assets/s_waiting.png')
+    panel.configure(image=status_icon)
 
 def _on_rcm_connect(evt, state=None):
-    print("_on_rcm_connect: thread %d" % threading.get_ident())
+    global last_state, last_was_non_rcm, last_was_push
+    global tk_push_button, status_icon, panel
+    if last_state == False:
+        addOutputText(tk_debug_output,
+                        "RCM device connected!\n")
+        last_state = True
+        last_was_non_rcm = False
+
+    tk_push_button.configure(default="active")
+    tk_push_button.configure(state=ACTIVE)
+    status_icon = get_image('assets/s_ready.png')
+    if last_state == False or 1:
+        panel.configure(image=status_icon)
+    last_state = True
+    last_was_push = False
+
+
+
+
+
+
+
 class CrystalRCM(Frame):
     def __init__(self, parent, *args, **kwargs):
+        global recent_files
+
         Frame.__init__(self, parent, *args, **kwargs)
         self.parent = parent
 
@@ -326,10 +356,12 @@ class CrystalRCM(Frame):
             with open('recent_dirs.txt', 'r') as f:
                 values = [line.rstrip('\n') for line in f]
 
-        values = unique(values)[:5]
+        values = list(reversed(unique(values)))[:5]
+        recent_files = values
 
         tk_combo_box = Combobox(parent, value=values)
         tk_combo_box.grid(row=0, column=1, sticky='E', pady=8, padx=4)
+        tk_combo_box.bind('<Configure>', on_combo_configure)
 
         if len(values) > 0:
             tk_combo_box.set(values[-1])
@@ -357,33 +389,6 @@ class CrystalRCM(Frame):
         messagebox.showwarning(title=title, message=message)
 
 
-def get_payload_type(payload):
-    """0: Fusee
-    1: Hekate
-    2: ReiNX
-    3: briccMii
-    4: LockPickRCM
-    -1: other
-    """
-    header = payload[:5]
-    if header == FUSEE:
-        return 0
-    if header == REI:
-        return 2
-    if header == BRICCMII:
-        return 3
-    if header == HEKATE_LOCKPICK:
-        if SWITCHBREW_STRING in payload:
-            return 1
-        else:
-            return 4
-    return -1
-
-
-def on_close():
-    stop_event.set()
-    threaded_task.join()
-    window.destroy()
 
 
 def main():
@@ -394,8 +399,11 @@ def main():
 
     window = Tk()
     window.resizable(False, False)
-    window.bind("<<nrcm>>", show_non_rcm_warning)
+    window.bind("<<nrcm>>", _on_normal_switch_connect)
     window.bind("<<rcm_connect>>", _on_rcm_connect)
+    window.bind("<<rcm_fail>>", _on_rcm_disconnect)
+    window.bind("<<other_fail>>", _on_other_disconnect)
+
     parser = argparse.ArgumentParser(
         description='launcher for the fusee gelee exploit (by @ktemkin)')
     arguments = parser.parse_args()
