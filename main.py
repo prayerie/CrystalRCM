@@ -295,7 +295,7 @@ def unique(list):
     seen = set()
     return [x for x in list if not (x in seen or seen.add(x))]
 
-def _on_rcm_connect(evt, state):
+def _on_rcm_connect(evt, state=None):
     print("Test")
 class CrystalRCM(Frame):
     def __init__(self, parent, *args, **kwargs):
