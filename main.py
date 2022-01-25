@@ -398,8 +398,9 @@ def main():
 
     app = CrystalRCM(window)
     app.grid(row=0, column=0)
-    window.mainloop()
     threaded_task.start()
+    window.mainloop()
+    
 
 
 if __name__ == '__main__':
