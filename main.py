@@ -216,12 +216,12 @@ def push():
             existing_list = f.readlines()
 
     with open('recent_dirs.txt', 'w') as f:
-        if payload_path not in existing_list:
-            existing_list.append(payload_path)
-        for ele in existing_list:
+        existing_list.append(payload_path)
+
+        for ele in unique(existing_list):
             if ele == '\n':
-                del(ele)
                 continue
+            
             ele = ele.strip('\n')
             f.write(ele + "\n")
 
@@ -283,7 +283,17 @@ def set_payload():
     tk_combo_box.set(filename)
     tk_combo_box.xview(END)
 
+def unique(list):
+    """Make a list unique whilst preserving its order.
 
+    Args:
+        list ([type]): input list
+
+    Returns:
+        list: the processed list
+    """
+    seen = set()
+    return [x for x in list if not (x in seen or seen.add(x))]
 class CrystalRCM(Frame):
     def __init__(self, parent, *args, **kwargs):
         Frame.__init__(self, parent, *args, **kwargs)
@@ -313,8 +323,7 @@ class CrystalRCM(Frame):
             with open('recent_dirs.txt', 'r') as f:
                 values = [line.rstrip('\n') for line in f]
 
-        values = list(reversed(values))[:5]
-        values = list(set(values))
+        values = unique(values)[:5]
 
         tk_combo_box = Combobox(parent, value=values)
         tk_combo_box.grid(row=0, column=1, sticky='E', pady=8, padx=4)
