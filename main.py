@@ -236,6 +236,8 @@ def push():
         
         messagebox.showinfo(
             title="Success!", message="Pushed payload successfully!")
+        stop_event.set()
+        window.destroy()
 
     elif result == 1:
         length = 0x30298
