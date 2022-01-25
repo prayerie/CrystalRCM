@@ -4,6 +4,10 @@ A simple fusee-launcher frontend for macOS (Universal).
 
  It has libusb statically linked, so you don't need to install anything else to use it.
 
+## Usage
+
+Please note - the app will not work unless you move it outside of the distribution .dmg.
+
 ## How to create
 .app builds can be found on the release page. You can also build from the repo, if you wish.
 
