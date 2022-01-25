@@ -91,7 +91,7 @@ class ThreadedTask(threading.Thread):
                 try:
                     fusee_launcher.RCMHax()._find_device()
                     window.event_generate("<<rcm_connect>>", when="tail")
-
+                    print("run: thread %d" % threading.get_ident())
                     if last_was_push:
                         continue
 
@@ -296,7 +296,7 @@ def unique(list):
     return [x for x in list if not (x in seen or seen.add(x))]
 
 def _on_rcm_connect(evt, state=None):
-    print("Test")
+    print("_on_rcm_connect: thread %d" % threading.get_ident())
 class CrystalRCM(Frame):
     def __init__(self, parent, *args, **kwargs):
         Frame.__init__(self, parent, *args, **kwargs)
@@ -403,6 +403,7 @@ def main():
     app = CrystalRCM(window)
     app.grid(row=0, column=0)
     threaded_task.start()
+    print("main: thread %d" % threading.get_ident())
     window.mainloop()
     
 
