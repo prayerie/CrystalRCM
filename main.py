@@ -118,7 +118,7 @@ class ThreadedTask(threading.Thread):
                     self.last_state = False
             else:
                 last_was_push = False
-                if last_state:
+                if last_state and not last_was_push:
                     addOutputText(tk_debug_output,
                                   "RCM device disconnected!\n")
                     last_state = False
@@ -336,7 +336,7 @@ class CrystalRCM(Frame):
         global last_state
 
         last_was_push = False
-        last_was_non_rcm = False
+        #last_was_non_rcm = False
         last_state = False
 
     def warn(self, title, message):
@@ -377,7 +377,7 @@ def main():
     queues = queue.Queue()
     threaded_task = ThreadedTask(queues)
     threaded_task.start()
-    
+
     window = Tk()
     window.resizable(False, False)
     window.bind("<<nrcm>>", show_non_rcm_warning)
