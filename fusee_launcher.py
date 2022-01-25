@@ -147,7 +147,7 @@ class Backend:
         # statically link LibUSB
         import usb
         import usb.backend.libusb1
-        libr = 'assets/libusb-1.0.0.lib'
+        libr = 'assets/libusb.lib'
 
         backend = usb.backend.libusb1.get_backend(find_library=lambda x: libr)
         self.dev = usb.core.find(backend=backend, idVendor=vid, idProduct=pid)

@@ -121,7 +121,7 @@ def set_payload():
     """
     global tk_debug_output
     filename = fd.askopenfilename()
-    addOutputText(tk_debug_output, f"Set payload: {filename}")
+    addOutputText(tk_debug_output, f"Set payload: {filename}\n")
     tk_combo_box.set(filename)
     tk_combo_box.xview(END)
     
@@ -172,8 +172,8 @@ def on_combo_configure(event):
     style.configure('TCombobox', postoffset=(0,0,width,0))
 
 def on_close():
+    global stop_event
     stop_event.set()
-    threaded_task.join()
     window.destroy()
 
 
