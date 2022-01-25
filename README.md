@@ -8,6 +8,8 @@ All credit to @Qriad who made the [original launcher](https://github.com/Qyriad/
 
 ## Usage
 
+![](ss1.png)
+
 Please note - the app will not work unless you move it outside of the distribution .dmg.
 
 ## How to create
