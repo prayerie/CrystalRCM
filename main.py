@@ -1,11 +1,12 @@
-import os, io
-from tkinter import ACTIVE, DISABLED, END, NORMAL, Frame, Image, Label, Listbox, Text, Tk, ttk
+import os
+import io
+from tkinter import ACTIVE, DISABLED, END, NORMAL, Frame, Label, Listbox, Text, Tk, ttk
 from tkinter import filedialog as fd
 from tkinter import messagebox
 from tkinter import Toplevel
 from tkinter import Image as TKImage, PhotoImage
 import argparse
-import flaunch
+import fusee_launcher
 import threading
 import time
 import queue
@@ -14,22 +15,26 @@ from payload_signature import BRICCMII, FUSEE, HEKATE_LOCKPICK, REI, SWITCHBREW_
 
 out = ""
 
-btn = None
-st = None
+
 global arguments
-img = None
-cb = None
-app = None
-window = None
 global img_success
 global last_state
-global t
-just_launched = False
-just_warned = False
+global threaded_task
+
+status_icon = None
+tk_combo_box = None
+app = None
+window = None
+
+tk_push_button = None
+tk_debug_output = None
+
+last_was_push = False
+last_was_non_rcm = False
 
 payload_type = -1
 
-
+threaded_task = None
 stop_event = threading.Event()
 
 RCM_VID = 0x0955
@@ -40,74 +45,90 @@ NORMAL_PID = 0x2000
 
 
 class ThreadedTask(threading.Thread):
+    """Poll USB for a device on a different thread.
+
+    Args:
+        threading ([type]): the thread itself
+    """
     global last_state
     last_state = False
-    
+
     def __init__(self, queue):
         super().__init__()
         self.queue = queue
 
     def run(self):
-        global img, st, btn, just_launched, just_warned, last_state
+        global status_icon, tk_debug_output, tk_push_button, last_was_push, last_was_non_rcm, last_state
         last_state = False
         non_rcm_prev = False
 
         while True:
+            # quit gracefully on close
             if stop_event.is_set():
                 break
 
-            if not st or not btn:
-                continue
+            # if not tk_debug_output or not tk_push_button:
+            #     continue
 
-            norm_switch = flaunch.cr_find_device(vid=NORMAL_VID, pid=NORMAL_PID) is not None
-            rcm_switch = flaunch.cr_find_device(vid=RCM_VID, pid=RCM_PID) is not None
+            norm_switch = fusee_launcher.cr_find_device(
+                vid=NORMAL_VID, pid=NORMAL_PID) is not None
+            rcm_switch = fusee_launcher.cr_find_device(
+                vid=RCM_VID, pid=RCM_PID) is not None
 
             if norm_switch:
-                if not just_warned:
-                    addOutputText(st, "Non-RCM Switch connected.\n")
+                if not last_was_non_rcm:
+                    addOutputText(tk_debug_output,
+                                  "Non-RCM Switch connected.\n")
                     if not non_rcm_prev and app is not None:
-                        window.event_generate("<<nrcm>>", when="tail", state=123)
-                    just_warned = True
+                        # we're on a different thread so we need to use an event rather than
+                        # directly showing a dialog box, otherwise we get a SIGTRAP
+                        window.event_generate("<<nrcm>>", when="tail")
+                    last_was_non_rcm = True
                     non_rcm_prev = True
             elif rcm_switch:
                 try:
-                    flaunch.RCMHax()._find_device()
+                    fusee_launcher.RCMHax()._find_device()
 
-                    if just_launched:
+                    if last_was_push:
                         continue
 
                     if last_state == False:
-                        addOutputText(st, "RCM device connected!\n")
+                        addOutputText(tk_debug_output,
+                                      "RCM device connected!\n")
                         last_state = True
-                        just_warned = False
+                        last_was_non_rcm = False
                         non_rcm_prev = False
 
-                    btn.configure(default="active")
-                    btn.configure(state=ACTIVE)
-                    img = get_image('assets/s_ready.png')
+                    tk_push_button.configure(default="active")
+                    tk_push_button.configure(state=ACTIVE)
+                    status_icon = get_image('assets/s_ready.png')
                     if last_state == False or 1:
-                        panel.configure(image=img)
+                        panel.configure(image=status_icon)
                     last_state = True
                 except IOError:
                     if last_state == True:
-                        addOutputText(st, "RCM device disconnected!\n")
-                        last_state = False 
-                    just_warned = False
-                    btn.configure(default="disabled")
-                    btn.configure(state=DISABLED)
-                    img = get_image('assets/s_waiting.png')
-                    panel.configure(image=img)
+                        addOutputText(tk_debug_output,
+                                      "RCM device disconnected!\n")
+                        last_state = False
+                    last_was_non_rcm = False
+                    tk_push_button.configure(default="disabled")
+                    tk_push_button.configure(state=DISABLED)
+                    status_icon = get_image('assets/s_waiting.png')
+                    panel.configure(image=status_icon)
                     self.last_state = False
             else:
-                just_launched = False
+                last_was_push = False
                 if last_state:
-                    addOutputText(st, "RCM device disconnected!\n")
+                    addOutputText(tk_debug_output,
+                                  "RCM device disconnected!\n")
                     last_state = False
-                if just_warned:
-                    addOutputText(st, "Non-RCM Switch disconnected?\n")
-                    just_warned = False
+                if last_was_non_rcm:
+                    addOutputText(tk_debug_output,
+                                  "Non-RCM Switch disconnected?\n")
+                    last_was_non_rcm = False
 
             time.sleep(0.3)
+
 
 class Combobox(ttk.Combobox):
     def _tk(self, cls, parent):
@@ -146,12 +167,14 @@ class Combobox(ttk.Combobox):
                 self.popdown.withdraw()
 
 
-__location__ = os.path.realpath( 
+__location__ = os.path.realpath(
     os.path.join(os.getcwd(), os.path.dirname(__file__)))
+
 
 def get_image(path: str):
     img = PhotoImage(file=local(path))
     return img
+
 
 def addOutputText(textWidget: Text, content: str):
     textWidget.configure(state=NORMAL)
@@ -159,33 +182,37 @@ def addOutputText(textWidget: Text, content: str):
     textWidget.see(END)
     textWidget.configure(state=DISABLED)
 
+
 def local(name: str):
     return os.path.join(__location__, name)
 
-def eventhandler(evt):  
-    app.warn(title="Not in recovery mode!", 
-    message="You have just connected a Nintendo Switch that isn't in recovery mode.\n\nPlease boot to RCM.")
+
+def show_non_rcm_warning(evt):
+    app.warn(title="Not in recovery mode!",
+             message="You have just connected a Nintendo Switch that isn't in recovery mode.\n\nPlease boot to RCM.")
+
 
 def push():
-    global payload_type, img_success, just_launched
+    global payload_type, img_success, last_was_push
 
-    payload_path = cb.get()
+    payload_path = tk_combo_box.get()
 
     if os.path.isfile(payload_path):
         with open(payload_path, "rb") as f:
             target_payload = f.read()
     else:
-        addOutputText(st, f"Invalid payload path specified!\n❌{payload_path}\n")
-        messagebox.showerror(title="Invalid path.", message="That file doesn't exist.")
+        addOutputText(tk_debug_output,
+                      f"Invalid payload path specified!\n❌{payload_path}\n")
+        messagebox.showerror(title="Invalid path.",
+                             message="That file doesn't exist.")
         app.refresh()
         return
 
     existing_list = []
     if os.path.isfile('recent_dirs.txt'):
-         with open('recent_dirs.txt', 'r') as f:
+        with open('recent_dirs.txt', 'r') as f:
             existing_list = f.readlines()
-        
-            
+
     with open('recent_dirs.txt', 'w') as f:
         if payload_path not in existing_list:
             existing_list.append(payload_path)
@@ -195,53 +222,65 @@ def push():
                 continue
             ele = ele.strip('\n')
             f.write(ele + "\n")
-    
-        
-    payload_type = get_payload_type(target_payload)
-    
 
-    just_launched = True
+    payload_type = get_payload_type(target_payload)
+
+    last_was_push = True
     f = io.StringIO()
-    result = flaunch.trypush(target_payload, arguments)
-    
+    result = fusee_launcher.try_push(target_payload, arguments)
+
+    # show the appropriate success image based on the payload they push
     if result == 0:
-        if payload_type == 0:
-            img_name = 's_ams'
-        if payload_type == 1:
-            img_name = 's_hkt'
-        if payload_type == 2:
-            img_name = 's_reinx'
-        if payload_type == 3:
-            img_name = 's_bricc'
-        if payload_type == 4:
-            img_name = 's_lockpick'
-        if payload_type == 5:
-            img_name = 's_generic'
+        match payload_type:
+            case 0:
+                img_name = 's_ams'
+            case 1:
+                img_name = 's_hkt'
+            case 2:
+                img_name = 's_reinx'
+            case 3:
+                img_name = 's_bricc'
+            case 4:
+                img_name = 's_lockpick'
+            case 5:
+                img_name = 's_generic'
+
         img_success = get_image(f'assets/{img_name}.png')
         panel.configure(image=img_success)
         panel.update()
-        addOutputText(st, "Launch success!\n")
-        
-        messagebox.showinfo(title="Success!", message="Pushed payload successfully!")
+        addOutputText(tk_debug_output, "Launch success!\n")
+
+        messagebox.showinfo(
+            title="Success!", message="Pushed payload successfully!")
+
     elif result == 1:
-        length  = 0x30298
+        length = 0x30298
         size_over = len(target_payload) - length
-        addOutputText(st, f"ERROR: Payload is too large to be submitted via RCM. ({size_over} bytes larger than max).")
-        
-        messagebox.showwarning(title="Payload too large.", message=f"Couldn't send your payload.\nIt is {size_over} bytes too large.")
+        addOutputText(
+            tk_debug_output, f"ERROR: Payload is too large to be submitted via RCM. ({size_over} bytes larger than max).")
+
+        messagebox.showwarning(title="Payload too large.",
+                               message=f"Couldn't send your payload.\nIt is {size_over} bytes too large.")
     elif result == 2:
-        addOutputText(st, "Could not find the intermezzo interposer. Did you build it?")
-        messagebox.showwarning(title="Missing file.", message=f"intermezzo.bin is missing from the app's assets folder.")
+        addOutputText(
+            tk_debug_output, "Could not find the intermezzo interposer. Did you build it?")
+        messagebox.showwarning(
+            title="Missing file.", message=f"intermezzo.bin is missing from the app's assets folder.")
     elif result == 3:
-        addOutputText(st, "Invalid payload path specified!")
+        addOutputText(tk_debug_output, "Invalid payload path specified!")
     elif result == 4:
-        messagebox.showwarning(title="Invalid device.", message=f"Invalid device.\nAre you trying to push to a Switch outside of recovery mode?")
+        messagebox.showwarning(
+            title="Invalid device.", message=f"Invalid device.\nAre you trying to push to a Switch outside of recovery mode?")
     app.refresh()
 
+
 def set_payload():
+    """Open a file chooser dialogue, and then scroll the ComboBox to the end.
+    """
     filename = fd.askopenfilename()
-    cb.set(filename)
-    cb.xview(END)
+    tk_combo_box.set(filename)
+    tk_combo_box.xview(END)
+
 
 class CrystalRCM(Frame):
     def __init__(self, parent, *args, **kwargs):
@@ -249,62 +288,55 @@ class CrystalRCM(Frame):
         self.parent = parent
 
         parent.protocol("WM_DELETE_WINDOW", on_close)
-        global img, panel, btn, cb
-        img = get_image('assets/s_waiting.png')
-        #The Label widget is a standard Tkinter widget used to display a text or image on the screen.
-        panel = Label(parent, image = img)
-        panel.image = img
-        #The Pack geometry manager packs widgets in rows or columns.
+        global status_icon, panel, tk_push_button, tk_combo_box
+        status_icon = get_image('assets/s_waiting.png')
+        panel = Label(parent, image=status_icon)
+        panel.image = status_icon
         panel.grid(row=0, column=0, sticky='n', pady=16, rowspan=2, padx=8)
 
-        btn=ttk.Button(parent, text='Push!', command=push)
-        btn.grid(row=0, column=2, sticky='W', pady=8, padx=4)
+        tk_push_button = ttk.Button(parent, text='Push!', command=push)
+        tk_push_button.grid(row=0, column=2, sticky='W', pady=8, padx=4)
 
-        btn.configure(default="disabled")
-        btn.configure(state=DISABLED)
-        
-        choosedir=ttk.Button(parent, text='Payload...', command=set_payload)
+        tk_push_button.configure(default="disabled")
+        tk_push_button.configure(state=DISABLED)
+
+        choosedir = ttk.Button(parent, text='Payload...', command=set_payload)
         choosedir.grid(row=0, column=3, sticky='W', pady=8, padx=4)
-        #window.iconbitmap(os.path.join(__location__, 'icon.ico'))
+
         imgc = TKImage("photo", file=local('assets/icon.png'))
 
-        
-
         values = []
-        
+
         if os.path.isfile('recent_dirs.txt'):
             with open('recent_dirs.txt', 'r') as f:
                 values = [line.rstrip('\n') for line in f]
 
         values = list(reversed(values))[:5]
         values = list(set(values))
-        
-        cb = Combobox(parent, value=values)
-        cb.grid(row=0, column=1, sticky='E', pady=8, padx=4)
-        
+
+        tk_combo_box = Combobox(parent, value=values)
+        tk_combo_box.grid(row=0, column=1, sticky='E', pady=8, padx=4)
+
         if len(values) > 0:
-            cb.set(values[0])
-            cb.xview(END)
+            tk_combo_box.set(values[0])
+            tk_combo_box.xview(END)
 
-        parent.tk.call('wm','iconphoto', parent._w, imgc)
+        parent.tk.call('wm', 'iconphoto', parent._w, imgc)
 
-        global st
-        st = Text(parent, height=5, width=60, relief='sunken')
-        st.grid(row=1,column=1, columnspan=3, sticky='n')
-        #st.config(state=DISABLED)
+        global tk_debug_output
+        tk_debug_output = Text(parent, height=5, width=60, relief='sunken')
+        tk_debug_output.grid(row=1, column=1, columnspan=3, sticky='n')
 
-        
         parent.geometry("540x140")
         parent.title('CrystalRCM')
 
     def refresh(self):
-        global just_launched
-        global just_warned
+        global last_was_push
+        global last_was_non_rcm
         global last_state
 
-        
-        just_launched = False
-        just_warned = False
+        last_was_push = False
+        last_was_non_rcm = False
         last_state = False
 
     def warn(self, title, message):
@@ -333,33 +365,31 @@ def get_payload_type(payload):
             return 4
     return -1
 
+
 def on_close():
     stop_event.set()
-    t.join()
+    threaded_task.join()
     window.destroy()
 
+
 def main():
-    global parser, arguments, payload_type, window, app, t
+    global parser, arguments, payload_type, window, app, threaded_task
     queues = queue.Queue()
-    t = ThreadedTask(queues)
-    t.start()
+    threaded_task = ThreadedTask(queues)
+    threaded_task.start()
+    
     window = Tk()
     window.resizable(False, False)
-    window.bind("<<nrcm>>", eventhandler)
-    
-    parser = argparse.ArgumentParser(description='launcher for the fusee gelee exploit (by @ktemkin)')
+    window.bind("<<nrcm>>", show_non_rcm_warning)
+
+    parser = argparse.ArgumentParser(
+        description='launcher for the fusee gelee exploit (by @ktemkin)')
     arguments = parser.parse_args()
 
-    
-    
-
-    
-
-    
-    
     app = CrystalRCM(window)
     app.grid(row=0, column=0)
     window.mainloop()
+
 
 if __name__ == '__main__':
     main()
