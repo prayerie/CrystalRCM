@@ -85,6 +85,8 @@ class ThreadedTask(threading.Thread):
                         window.event_generate("<<nrcm>>", when="tail")
                     last_was_non_rcm = True
                     non_rcm_prev = True
+                    status_icon = get_image('assets/s_waiting.png')
+                    panel.configure(image=status_icon)
             elif rcm_switch:
                 try:
                     fusee_launcher.RCMHax()._find_device()
@@ -318,7 +320,7 @@ class CrystalRCM(Frame):
         tk_combo_box.grid(row=0, column=1, sticky='E', pady=8, padx=4)
 
         if len(values) > 0:
-            tk_combo_box.set(values[0])
+            tk_combo_box.set(values[-1])
             tk_combo_box.xview(END)
 
         parent.tk.call('wm', 'iconphoto', parent._w, imgc)
