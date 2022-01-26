@@ -22,4 +22,4 @@ Please note - the app will not work unless you move it outside of the distributi
 5. Move `libusb.lib` to the `assets/` folder of this repository.
 6. `chmod +x create_app.sh`
 7. `./create_app.sh`
-8. You're done! The app is located in the `dist` subfolder.
+8. You're done - the app is located in the `dist` subfolder.
