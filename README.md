@@ -4,7 +4,7 @@ A simple fusee-launcher frontend for macOS (Universal).
 
  It has libusb statically linked, so you don't need to install anything else to use it.
 
-All credit to @Qriad who made the [original launcher](https://github.com/Qyriad/fusee-launcher) - this is merely a frontend.
+All credit to Qriad who made the [original launcher](https://github.com/Qyriad/fusee-launcher) - this is merely a frontend.
 
 ## Usage
 
