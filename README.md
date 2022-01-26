@@ -1,6 +1,6 @@
 ![](banner.png)
 
-A simple fusee-launcher frontend for macOS (Universal).
+A simple fusee-launcher frontend for macOS (Universal). **Currently only supports macOS >= 11.0 due to the python binary used, this will be fixed ASAP.**
 
  It has libusb statically linked, so you don't need to install anything else to use it.
 
