@@ -1,0 +1,580 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4DC4412327A4026E00CE0821 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC4412227A4026E00CE0821 /* AppDelegate.swift */; };
+		4DC4412527A4026E00CE0821 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC4412427A4026E00CE0821 /* ViewController.swift */; };
+		4DC4412727A4026F00CE0821 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DC4412627A4026F00CE0821 /* Assets.xcassets */; };
+		4DC4412A27A4026F00CE0821 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DC4412827A4026F00CE0821 /* Main.storyboard */; };
+		4DC4413527A4026F00CE0821 /* CrystalRCM_DXTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC4413427A4026F00CE0821 /* CrystalRCM_DXTests.swift */; };
+		4DC4413F27A4026F00CE0821 /* CrystalRCM_DXUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC4413E27A4026F00CE0821 /* CrystalRCM_DXUITests.swift */; };
+		4DC4414127A4026F00CE0821 /* CrystalRCM_DXUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC4414027A4026F00CE0821 /* CrystalRCM_DXUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4DC4413127A4026F00CE0821 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DC4411727A4026E00CE0821 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4DC4411E27A4026E00CE0821;
+			remoteInfo = "CrystalRCM-DX";
+		};
+		4DC4413B27A4026F00CE0821 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DC4411727A4026E00CE0821 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4DC4411E27A4026E00CE0821;
+			remoteInfo = "CrystalRCM-DX";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4DC4411F27A4026E00CE0821 /* CrystalRCM-DX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CrystalRCM-DX.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4DC4412227A4026E00CE0821 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		4DC4412427A4026E00CE0821 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4DC4412627A4026F00CE0821 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4DC4412927A4026F00CE0821 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4DC4412B27A4026F00CE0821 /* CrystalRCM_DX.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CrystalRCM_DX.entitlements; sourceTree = "<group>"; };
+		4DC4413027A4026F00CE0821 /* CrystalRCM-DXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CrystalRCM-DXTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4DC4413427A4026F00CE0821 /* CrystalRCM_DXTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrystalRCM_DXTests.swift; sourceTree = "<group>"; };
+		4DC4413A27A4026F00CE0821 /* CrystalRCM-DXUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CrystalRCM-DXUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4DC4413E27A4026F00CE0821 /* CrystalRCM_DXUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrystalRCM_DXUITests.swift; sourceTree = "<group>"; };
+		4DC4414027A4026F00CE0821 /* CrystalRCM_DXUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrystalRCM_DXUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4DC4411C27A4026E00CE0821 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4DC4412D27A4026F00CE0821 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4DC4413727A4026F00CE0821 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4DC4411627A4026E00CE0821 = {
+			isa = PBXGroup;
+			children = (
+				4DC4412127A4026E00CE0821 /* CrystalRCM-DX */,
+				4DC4413327A4026F00CE0821 /* CrystalRCM-DXTests */,
+				4DC4413D27A4026F00CE0821 /* CrystalRCM-DXUITests */,
+				4DC4412027A4026E00CE0821 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4DC4412027A4026E00CE0821 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4DC4411F27A4026E00CE0821 /* CrystalRCM-DX.app */,
+				4DC4413027A4026F00CE0821 /* CrystalRCM-DXTests.xctest */,
+				4DC4413A27A4026F00CE0821 /* CrystalRCM-DXUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4DC4412127A4026E00CE0821 /* CrystalRCM-DX */ = {
+			isa = PBXGroup;
+			children = (
+				4DC4412227A4026E00CE0821 /* AppDelegate.swift */,
+				4DC4412427A4026E00CE0821 /* ViewController.swift */,
+				4DC4412627A4026F00CE0821 /* Assets.xcassets */,
+				4DC4412827A4026F00CE0821 /* Main.storyboard */,
+				4DC4412B27A4026F00CE0821 /* CrystalRCM_DX.entitlements */,
+			);
+			path = "CrystalRCM-DX";
+			sourceTree = "<group>";
+		};
+		4DC4413327A4026F00CE0821 /* CrystalRCM-DXTests */ = {
+			isa = PBXGroup;
+			children = (
+				4DC4413427A4026F00CE0821 /* CrystalRCM_DXTests.swift */,
+			);
+			path = "CrystalRCM-DXTests";
+			sourceTree = "<group>";
+		};
+		4DC4413D27A4026F00CE0821 /* CrystalRCM-DXUITests */ = {
+			isa = PBXGroup;
+			children = (
+				4DC4413E27A4026F00CE0821 /* CrystalRCM_DXUITests.swift */,
+				4DC4414027A4026F00CE0821 /* CrystalRCM_DXUITestsLaunchTests.swift */,
+			);
+			path = "CrystalRCM-DXUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4DC4411E27A4026E00CE0821 /* CrystalRCM-DX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4DC4414427A4026F00CE0821 /* Build configuration list for PBXNativeTarget "CrystalRCM-DX" */;
+			buildPhases = (
+				4DC4411B27A4026E00CE0821 /* Sources */,
+				4DC4411C27A4026E00CE0821 /* Frameworks */,
+				4DC4411D27A4026E00CE0821 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CrystalRCM-DX";
+			productName = "CrystalRCM-DX";
+			productReference = 4DC4411F27A4026E00CE0821 /* CrystalRCM-DX.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4DC4412F27A4026F00CE0821 /* CrystalRCM-DXTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4DC4414727A4026F00CE0821 /* Build configuration list for PBXNativeTarget "CrystalRCM-DXTests" */;
+			buildPhases = (
+				4DC4412C27A4026F00CE0821 /* Sources */,
+				4DC4412D27A4026F00CE0821 /* Frameworks */,
+				4DC4412E27A4026F00CE0821 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4DC4413227A4026F00CE0821 /* PBXTargetDependency */,
+			);
+			name = "CrystalRCM-DXTests";
+			productName = "CrystalRCM-DXTests";
+			productReference = 4DC4413027A4026F00CE0821 /* CrystalRCM-DXTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		4DC4413927A4026F00CE0821 /* CrystalRCM-DXUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4DC4414A27A4026F00CE0821 /* Build configuration list for PBXNativeTarget "CrystalRCM-DXUITests" */;
+			buildPhases = (
+				4DC4413627A4026F00CE0821 /* Sources */,
+				4DC4413727A4026F00CE0821 /* Frameworks */,
+				4DC4413827A4026F00CE0821 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4DC4413C27A4026F00CE0821 /* PBXTargetDependency */,
+			);
+			name = "CrystalRCM-DXUITests";
+			productName = "CrystalRCM-DXUITests";
+			productReference = 4DC4413A27A4026F00CE0821 /* CrystalRCM-DXUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4DC4411727A4026E00CE0821 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1320;
+				LastUpgradeCheck = 1320;
+				TargetAttributes = {
+					4DC4411E27A4026E00CE0821 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+					4DC4412F27A4026F00CE0821 = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = 4DC4411E27A4026E00CE0821;
+					};
+					4DC4413927A4026F00CE0821 = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = 4DC4411E27A4026E00CE0821;
+					};
+				};
+			};
+			buildConfigurationList = 4DC4411A27A4026E00CE0821 /* Build configuration list for PBXProject "CrystalRCM-DX" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4DC4411627A4026E00CE0821;
+			productRefGroup = 4DC4412027A4026E00CE0821 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4DC4411E27A4026E00CE0821 /* CrystalRCM-DX */,
+				4DC4412F27A4026F00CE0821 /* CrystalRCM-DXTests */,
+				4DC4413927A4026F00CE0821 /* CrystalRCM-DXUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4DC4411D27A4026E00CE0821 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4DC4412727A4026F00CE0821 /* Assets.xcassets in Resources */,
+				4DC4412A27A4026F00CE0821 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4DC4412E27A4026F00CE0821 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4DC4413827A4026F00CE0821 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4DC4411B27A4026E00CE0821 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4DC4412527A4026E00CE0821 /* ViewController.swift in Sources */,
+				4DC4412327A4026E00CE0821 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4DC4412C27A4026F00CE0821 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4DC4413527A4026F00CE0821 /* CrystalRCM_DXTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4DC4413627A4026F00CE0821 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4DC4414127A4026F00CE0821 /* CrystalRCM_DXUITestsLaunchTests.swift in Sources */,
+				4DC4413F27A4026F00CE0821 /* CrystalRCM_DXUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4DC4413227A4026F00CE0821 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4DC4411E27A4026E00CE0821 /* CrystalRCM-DX */;
+			targetProxy = 4DC4413127A4026F00CE0821 /* PBXContainerItemProxy */;
+		};
+		4DC4413C27A4026F00CE0821 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4DC4411E27A4026E00CE0821 /* CrystalRCM-DX */;
+			targetProxy = 4DC4413B27A4026F00CE0821 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		4DC4412827A4026F00CE0821 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4DC4412927A4026F00CE0821 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4DC4414227A4026F00CE0821 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		4DC4414327A4026F00CE0821 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		4DC4414527A4026F00CE0821 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "CrystalRCM-DX/CrystalRCM_DX.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "cafe.rob.CrystalRCM-DX";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		4DC4414627A4026F00CE0821 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "CrystalRCM-DX/CrystalRCM_DX.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "cafe.rob.CrystalRCM-DX";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		4DC4414827A4026F00CE0821 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "cafe.rob.CrystalRCM-DXTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CrystalRCM-DX.app/Contents/MacOS/CrystalRCM-DX";
+			};
+			name = Debug;
+		};
+		4DC4414927A4026F00CE0821 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "cafe.rob.CrystalRCM-DXTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CrystalRCM-DX.app/Contents/MacOS/CrystalRCM-DX";
+			};
+			name = Release;
+		};
+		4DC4414B27A4026F00CE0821 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "cafe.rob.CrystalRCM-DXUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "CrystalRCM-DX";
+			};
+			name = Debug;
+		};
+		4DC4414C27A4026F00CE0821 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "cafe.rob.CrystalRCM-DXUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "CrystalRCM-DX";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4DC4411A27A4026E00CE0821 /* Build configuration list for PBXProject "CrystalRCM-DX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4DC4414227A4026F00CE0821 /* Debug */,
+				4DC4414327A4026F00CE0821 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4DC4414427A4026F00CE0821 /* Build configuration list for PBXNativeTarget "CrystalRCM-DX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4DC4414527A4026F00CE0821 /* Debug */,
+				4DC4414627A4026F00CE0821 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4DC4414727A4026F00CE0821 /* Build configuration list for PBXNativeTarget "CrystalRCM-DXTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4DC4414827A4026F00CE0821 /* Debug */,
+				4DC4414927A4026F00CE0821 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4DC4414A27A4026F00CE0821 /* Build configuration list for PBXNativeTarget "CrystalRCM-DXUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4DC4414B27A4026F00CE0821 /* Debug */,
+				4DC4414C27A4026F00CE0821 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4DC4411727A4026E00CE0821 /* Project object */;
+}
