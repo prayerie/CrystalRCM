@@ -6,6 +6,8 @@ A simple fusee-launcher frontend for macOS (Universal). **Supports macOS >= 10.9
 
 All credit to Qriad who made the [original launcher](https://github.com/Qyriad/fusee-launcher) - this is merely a frontend.
 
+Note: a [native version](https://github.com/mistyhands/CrystalRCM/tree/native-version) is currently in development.
+
 ## Usage
 
 ![](ss1.png)
