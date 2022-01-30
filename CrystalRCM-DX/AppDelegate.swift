@@ -15,10 +15,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         USBMonitorData(vendorId: VID.RCM.rawValue, productId: PID.RCM.rawValue)
         ])
 
-
+    let nxMonitor = USBDeviceMonitor([
+        USBMonitorData(vendorId: VID.NX.rawValue, productId: PID.NX.rawValue)
+        ])
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         let tegraDaemon = Thread(target: tegraMonitor, selector:#selector(tegraMonitor.start), object: nil)
         tegraDaemon.start()
+        
+        let nxDaemon = Thread(target: nxMonitor, selector:#selector(nxMonitor.start), object: nil)
+        nxDaemon.start()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

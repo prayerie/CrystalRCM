@@ -16,6 +16,7 @@
 		4DC4413F27A4026F00CE0821 /* CrystalRCM_DXUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC4413E27A4026F00CE0821 /* CrystalRCM_DXUITests.swift */; };
 		4DC4414127A4026F00CE0821 /* CrystalRCM_DXUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC4414027A4026F00CE0821 /* CrystalRCM_DXUITestsLaunchTests.swift */; };
 		4DF752B527A6B70A006FB12C /* TegraDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF752B427A6B70A006FB12C /* TegraDevice.swift */; };
+		4DF752BA27A6C1F1006FB12C /* StatusImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF752B927A6C1F1006FB12C /* StatusImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		4DC4413E27A4026F00CE0821 /* CrystalRCM_DXUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrystalRCM_DXUITests.swift; sourceTree = "<group>"; };
 		4DC4414027A4026F00CE0821 /* CrystalRCM_DXUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrystalRCM_DXUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		4DF752B427A6B70A006FB12C /* TegraDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TegraDevice.swift; sourceTree = "<group>"; };
+		4DF752B927A6C1F1006FB12C /* StatusImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 				4DC4412827A4026F00CE0821 /* Main.storyboard */,
 				4DC4412B27A4026F00CE0821 /* CrystalRCM_DX.entitlements */,
 				4DF752B427A6B70A006FB12C /* TegraDevice.swift */,
+				4DF752B927A6C1F1006FB12C /* StatusImage.swift */,
 			);
 			path = "CrystalRCM-DX";
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 				4DC4412527A4026E00CE0821 /* ViewController.swift in Sources */,
 				4DF752B527A6B70A006FB12C /* TegraDevice.swift in Sources */,
 				4DC4412327A4026E00CE0821 /* AppDelegate.swift in Sources */,
+				4DF752BA27A6C1F1006FB12C /* StatusImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

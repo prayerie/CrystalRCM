@@ -49,9 +49,16 @@ class ViewController: NSViewController {
             let device = TegraDevice(deviceInfo)
             DispatchQueue.main.async {
                 self.devices.append(device)
-                self.addConsoleLine(line: "Connected")
-                let img = NSImage(named:"s_ready")
-                self.statusImage.image = img
+                self.addConsoleLine(line: "Connected - RCM")
+                self.statusImage.image = READY
+            }
+        }
+        if (deviceInfo.vendorId == VID.NX.rawValue) && (deviceInfo.productId == PID.NX.rawValue) {
+            let device = TegraDevice(deviceInfo)
+            DispatchQueue.main.async {
+                self.devices.append(device)
+                self.addConsoleLine(line: "Connected - non RCM")
+                self.warnUser()
             }
         }
         
@@ -71,8 +78,7 @@ class ViewController: NSViewController {
             if let index = self.devices.index(where: { $0.deviceInfo.id == id }) {
                 self.devices.remove(at: index)
                 self.addConsoleLine(line: "Disonnected")
-                let img = NSImage(named:"s_waiting")
-                self.statusImage.image = img
+                self.statusImage.image = WAITING
                 self.connectedDevice = nil
             }
         }
@@ -89,6 +95,17 @@ class ViewController: NSViewController {
         if clicked == NSApplication.ModalResponse.OK {
             addConsoleLine(line: "\(panel.urls)")
         }
+    }
+    
+    func warnUser() {
+        let alert = NSAlert()
+        alert.messageText = "what"
+        alert.informativeText = "Piss My Pants .com"
+        alert.addButton(withTitle: "OK")
+        alert.addButton(withTitle: "Cancel")
+        alert.alertStyle = .warning
+        alert.icon = NSImage(named: NSImage.cautionName)
+        alert.runModal()
     }
     
     override var representedObject: Any? {
