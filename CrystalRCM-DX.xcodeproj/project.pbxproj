@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D187FD727A6175D00EBAAA2 /* USBDeviceSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4D187FD627A6175D00EBAAA2 /* USBDeviceSwift */; };
 		4DC4412327A4026E00CE0821 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC4412227A4026E00CE0821 /* AppDelegate.swift */; };
 		4DC4412527A4026E00CE0821 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC4412427A4026E00CE0821 /* ViewController.swift */; };
 		4DC4412727A4026F00CE0821 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DC4412627A4026F00CE0821 /* Assets.xcassets */; };
@@ -14,6 +15,7 @@
 		4DC4413527A4026F00CE0821 /* CrystalRCM_DXTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC4413427A4026F00CE0821 /* CrystalRCM_DXTests.swift */; };
 		4DC4413F27A4026F00CE0821 /* CrystalRCM_DXUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC4413E27A4026F00CE0821 /* CrystalRCM_DXUITests.swift */; };
 		4DC4414127A4026F00CE0821 /* CrystalRCM_DXUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC4414027A4026F00CE0821 /* CrystalRCM_DXUITestsLaunchTests.swift */; };
+		4DF752B527A6B70A006FB12C /* TegraDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF752B427A6B70A006FB12C /* TegraDevice.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4D187FA627A6145100EBAAA2 /* CrystalRCM-DX-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CrystalRCM-DX-Bridging-Header.h"; sourceTree = "<group>"; };
 		4DC4411F27A4026E00CE0821 /* CrystalRCM-DX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CrystalRCM-DX.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DC4412227A4026E00CE0821 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4DC4412427A4026E00CE0821 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -45,6 +48,7 @@
 		4DC4413A27A4026F00CE0821 /* CrystalRCM-DXUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CrystalRCM-DXUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DC4413E27A4026F00CE0821 /* CrystalRCM_DXUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrystalRCM_DXUITests.swift; sourceTree = "<group>"; };
 		4DC4414027A4026F00CE0821 /* CrystalRCM_DXUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrystalRCM_DXUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		4DF752B427A6B70A006FB12C /* TegraDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TegraDevice.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D187FD727A6175D00EBAAA2 /* USBDeviceSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,13 +77,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4D10B5D127A605760080A523 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		4DC4411627A4026E00CE0821 = {
 			isa = PBXGroup;
 			children = (
+				4D187FA627A6145100EBAAA2 /* CrystalRCM-DX-Bridging-Header.h */,
 				4DC4412127A4026E00CE0821 /* CrystalRCM-DX */,
 				4DC4413327A4026F00CE0821 /* CrystalRCM-DXTests */,
 				4DC4413D27A4026F00CE0821 /* CrystalRCM-DXUITests */,
 				4DC4412027A4026E00CE0821 /* Products */,
+				4D10B5D127A605760080A523 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -100,6 +114,7 @@
 				4DC4412627A4026F00CE0821 /* Assets.xcassets */,
 				4DC4412827A4026F00CE0821 /* Main.storyboard */,
 				4DC4412B27A4026F00CE0821 /* CrystalRCM_DX.entitlements */,
+				4DF752B427A6B70A006FB12C /* TegraDevice.swift */,
 			);
 			path = "CrystalRCM-DX";
 			sourceTree = "<group>";
@@ -137,6 +152,9 @@
 			dependencies = (
 			);
 			name = "CrystalRCM-DX";
+			packageProductDependencies = (
+				4D187FD627A6175D00EBAAA2 /* USBDeviceSwift */,
+			);
 			productName = "CrystalRCM-DX";
 			productReference = 4DC4411F27A4026E00CE0821 /* CrystalRCM-DX.app */;
 			productType = "com.apple.product-type.application";
@@ -209,6 +227,9 @@
 				Base,
 			);
 			mainGroup = 4DC4411627A4026E00CE0821;
+			packageReferences = (
+				4D187FD527A6175D00EBAAA2 /* XCRemoteSwiftPackageReference "USBDeviceSwift" */,
+			);
 			productRefGroup = 4DC4412027A4026E00CE0821 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -252,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DC4412527A4026E00CE0821 /* ViewController.swift in Sources */,
+				4DF752B527A6B70A006FB12C /* TegraDevice.swift in Sources */,
 				4DC4412327A4026E00CE0821 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -303,7 +325,7 @@
 		4DC4414227A4026F00CE0821 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -337,6 +359,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/**";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -351,6 +374,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/libusb/**",
+					/usr/local/include,
+				);
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -364,7 +392,7 @@
 		4DC4414327A4026F00CE0821 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -398,6 +426,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/**";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -406,6 +435,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/libusb/**",
+					/usr/local/include,
+				);
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -425,6 +459,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
@@ -433,10 +468,15 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/CrystalRCM-DX",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "cafe.rob.CrystalRCM-DX";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/CrystalRCM-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -451,6 +491,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
@@ -459,10 +500,15 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/CrystalRCM-DX",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "cafe.rob.CrystalRCM-DX";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/CrystalRCM-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -575,6 +621,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4D187FD527A6175D00EBAAA2 /* XCRemoteSwiftPackageReference "USBDeviceSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Arti3DPlayer/USBDeviceSwift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4D187FD627A6175D00EBAAA2 /* USBDeviceSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4D187FD527A6175D00EBAAA2 /* XCRemoteSwiftPackageReference "USBDeviceSwift" */;
+			productName = USBDeviceSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4DC4411727A4026E00CE0821 /* Project object */;
 }
