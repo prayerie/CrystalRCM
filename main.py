@@ -256,7 +256,7 @@ def push():
         addOutputText(tk_debug_output, "Invalid payload path specified!")
     elif result == 4:
         messagebox.showwarning(
-            title="Invalid device.", message=f"Invalid device.\nAre you trying to push to a Switch outside of recovery mode?")
+            title="Invalid device.", message=f"Invalid device.\nYour Switch may be patched and require a hardmod.")
     app.refresh()
 
 def _on_normal_switch_connect(evt, status=None):
