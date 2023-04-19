@@ -167,7 +167,10 @@ def on_combo_configure(event):
     import tkinter.font as tkfont
 
     font = tkfont.nametofont(str(event.widget.cget('font')))
-    width = font.measure(max(recent_files, key=len) + "0") - event.width
+    if not recent_files:
+        return
+    else:
+        width = font.measure(max(recent_files, key=len) + "0") - event.width
     style = ttk.Style()
     style.configure('TCombobox', postoffset=(0,0,width,0))
 
