@@ -6,7 +6,7 @@ A simple fusee-launcher frontend for macOS (Universal). **Supports macOS >= 10.9
 
 All credit to Qriad who made the [original launcher](https://github.com/Qyriad/fusee-launcher) - this is merely a frontend.
 
-Note: a [native version](https://github.com/mistyhands/CrystalRCM/tree/native-version) is currently in development.
+**Note: When closing, the application may hang on the dock, with no window visible. If this happens, hold Option, right click CrystalRCM on the dock, and Force Quit.** (I will fix this soon :) )
 
 ## Usage
 
