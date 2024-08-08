@@ -25,3 +25,7 @@ Please note - the app will not work unless you move it outside of the distributi
 6. `chmod +x create_app.sh`
 7. `./create_app.sh`
 8. You're done - the app is located in the `dist` subfolder.
+
+## Contact
+
+If you run into any issues or have any questions, feel free to open an issue here, or contact me on Discord: @prayerie.
