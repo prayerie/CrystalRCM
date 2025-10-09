@@ -22,7 +22,7 @@ class ViewController: NSViewController {
     private let recentPathsKey = "RecentPayloadPaths"
     private let maxRecentPaths = 5
     
-    private let ver = "0.1.3"
+    private let ver = "1.0.0"
     private let crystalrcmGh = "https://api.github.com/repos/prayerie/CrystalRCM/releases/latest"
 
     
@@ -181,7 +181,6 @@ class ViewController: NSViewController {
                 addConsoleLine(line: "[error] intermezzo.bin is missing. Please redownload CrystalRCM.")
                 return
             }
-            
             DispatchQueue.global(qos: .userInitiated).async {
                 do {
                     try device.pushPayload(payloadData: payloadData, intermezzoPath: intermezzoPath)
@@ -209,15 +208,19 @@ class ViewController: NSViewController {
                         self.statusImage.image = successImage
                     }
                 } catch let error as TegraDeviceError {
+                    self.progressBar.isHidden = true
                     if case .BadId = error {
                         DispatchQueue.main.async {
                             self.progressBar.doubleValue = 0.0
                             self.warnUserBadId()
                         }
                     }
-                    DispatchQueue.main.async {
-                        self.progressBar.doubleValue = 0.0
-                        self.addConsoleLine(line: "[error] \(error)")
+                    if case .IoReadPipeError(let desc) = error {
+                        DispatchQueue.main.async {
+                            self.progressBar.doubleValue = 0.0
+                            self.addConsoleLine(line: "[error] \(desc)")
+                            self.warnUserBadConnPoss()
+                        }
                     }
                 } catch {
                     DispatchQueue.main.async {
@@ -370,6 +373,16 @@ class ViewController: NSViewController {
         let alert = NSAlert()
         alert.messageText = "Bad device ID."
         alert.informativeText = "Device ID returned all zeroes. Please reboot RCM."
+        alert.addButton(withTitle: "OK")
+        alert.alertStyle = .warning
+        alert.icon = NSImage(named: NSImage.cautionName)
+        alert.runModal()
+    }
+    
+    func warnUserBadConnPoss() {
+        let alert = NSAlert()
+        alert.messageText = "Error during `ReadPipeTO`."
+        alert.informativeText = "Couldn't read device ID; the connection is probably bad. Please try again with a different cable/USB port."
         alert.addButton(withTitle: "OK")
         alert.alertStyle = .warning
         alert.icon = NSImage(named: NSImage.cautionName)
