@@ -32,34 +32,13 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="File" id="dMs-cI-mzQ">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="File" id="bib-Uj-vzu">
-                                    <items>
-                                        <menuItem title="Open…" keyEquivalent="o" id="IAo-SY-fd9"/>
-                                        <menuItem title="Open Recent" id="tXI-mr-wws">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" title="Open Recent" systemMenu="recentDocuments" id="oas-Oc-fiZ">
-                                                <items>
-                                                    <menuItem title="Clear Menu" id="vNY-rz-j42">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="clearRecentDocuments:" target="Ady-hI-5gd" id="Daa-9d-B3U"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                </items>
-                                            </menu>
-                                        </menuItem>
-                                    </items>
-                                </menu>
-                            </menuItem>
                         </items>
                     </menu>
                     <connections>
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="CrystalRCM_DX" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="CrystalRCM" customModuleProvider="target"/>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <userDefaultsController representsSharedInstance="YES" id="uhz-3s-c1H"/>
@@ -92,16 +71,20 @@
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="CrystalRCM_DX" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="CrystalRCM" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="636" height="242"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BdO-rM-Yy0">
+                            <button allowsExpansionToolTips="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BdO-rM-Yy0">
                                 <rect key="frame" x="414" y="193" width="80" height="32"/>
                                 <buttonCell key="cell" type="push" title="Push!" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="ztx-67-BF1">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                    <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                 </buttonCell>
                                 <color key="bezelColor" name="AccentColor"/>
                                 <constraints>
@@ -117,7 +100,7 @@
                                     <rect key="frame" x="1" y="1" width="483" height="151"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" smartInsertDelete="YES" id="sAu-QA-51e">
+                                        <textView editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" smartInsertDelete="YES" id="sAu-QA-51e">
                                             <rect key="frame" x="0.0" y="0.0" width="483" height="151"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -137,7 +120,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <comboBox verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BpK-cV-tjV">
+                            <comboBox verticalHuggingPriority="750" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BpK-cV-tjV">
                                 <rect key="frame" x="115" y="199" width="301" height="23"/>
                                 <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="b15-hV-tU4">
                                     <font key="font" metaFont="system"/>
@@ -150,15 +133,13 @@
                                     </objectValues>
                                 </comboBoxCell>
                             </comboBox>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="shT-q7-itG">
-                                <rect key="frame" x="14" y="93" width="80" height="129"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="s_waiting" id="n1D-kx-8QI"/>
-                            </imageView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tw1-DR-3rt">
                                 <rect key="frame" x="486" y="193" width="137" height="32"/>
                                 <buttonCell key="cell" type="push" title="Select payload" bezelStyle="rounded" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="6lG-zy-98A">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent">o</string>
+                                    <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                 </buttonCell>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="123" id="M9t-vK-WG0"/>
@@ -178,33 +159,50 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IaW-ap-TxA">
+                                <rect key="frame" x="12" y="202" width="90" height="18"/>
+                                <buttonCell key="cell" type="check" title="Auto-push" bezelStyle="regularSquare" imagePosition="left" inset="2" id="t1a-fx-LAM">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="onAutopushToggle:" target="XfG-lQ-9wD" id="kU5-eJ-JwW"/>
+                                </connections>
+                            </button>
+                            <imageView autoresizesSubviews="NO" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="shT-q7-itG">
+                                <rect key="frame" x="18" y="56" width="80" height="129"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="s_waiting" id="n1D-kx-8QI"/>
+                            </imageView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="BpK-cV-tjV" firstAttribute="baseline" secondItem="BdO-rM-Yy0" secondAttribute="baseline" id="0PL-OE-Sc9"/>
-                            <constraint firstAttribute="bottom" secondItem="shT-q7-itG" secondAttribute="bottom" constant="93" id="5NU-Mv-JE2"/>
+                            <constraint firstAttribute="bottom" secondItem="shT-q7-itG" secondAttribute="bottom" constant="56" id="1le-xs-4ka"/>
+                            <constraint firstItem="shT-q7-itG" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="6Oa-su-6ew"/>
                             <constraint firstAttribute="trailing" secondItem="tw1-DR-3rt" secondAttribute="trailing" constant="20" symbolic="YES" id="8wD-Kn-trB"/>
+                            <constraint firstItem="shT-q7-itG" firstAttribute="centerX" secondItem="IaW-ap-TxA" secondAttribute="centerX" id="BdG-2N-FVj"/>
                             <constraint firstItem="BdO-rM-Yy0" firstAttribute="baseline" secondItem="tw1-DR-3rt" secondAttribute="baseline" id="DOT-VF-qDL"/>
                             <constraint firstItem="N9x-lM-UME" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="116" id="I1A-6X-vzb"/>
                             <constraint firstItem="BpK-cV-tjV" firstAttribute="leading" secondItem="vvh-8J-mb1" secondAttribute="leading" id="I3d-eZ-u67"/>
                             <constraint firstAttribute="bottom" secondItem="N9x-lM-UME" secondAttribute="bottom" constant="4" id="Mhp-75-50t"/>
                             <constraint firstItem="BpK-cV-tjV" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="21" id="NGe-ve-pVz"/>
                             <constraint firstAttribute="trailing" secondItem="N9x-lM-UME" secondAttribute="trailing" constant="20" id="NRz-7u-lbb"/>
-                            <constraint firstItem="shT-q7-itG" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" symbolic="YES" id="QvQ-Hf-T5y"/>
+                            <constraint firstItem="shT-q7-itG" firstAttribute="top" secondItem="IaW-ap-TxA" secondAttribute="bottom" constant="18" id="UZV-4D-hRU"/>
                             <constraint firstItem="vvh-8J-mb1" firstAttribute="top" secondItem="BdO-rM-Yy0" secondAttribute="bottom" constant="4" id="XeH-dU-j7y"/>
-                            <constraint firstItem="shT-q7-itG" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="14" id="ael-tV-uRy"/>
+                            <constraint firstItem="fSb-kn-Xvv" firstAttribute="leading" secondItem="shT-q7-itG" secondAttribute="trailing" constant="18" id="Y0W-v6-Mgd"/>
                             <constraint firstItem="vvh-8J-mb1" firstAttribute="leading" secondItem="fSb-kn-Xvv" secondAttribute="leading" id="b8R-Ur-cy0"/>
                             <constraint firstAttribute="bottom" secondItem="fSb-kn-Xvv" secondAttribute="bottom" constant="20" symbolic="YES" id="cLz-BW-8a4"/>
                             <constraint firstItem="vvh-8J-mb1" firstAttribute="trailing" secondItem="fSb-kn-Xvv" secondAttribute="trailing" id="cV0-v1-2Ch"/>
                             <constraint firstItem="tw1-DR-3rt" firstAttribute="leading" secondItem="BdO-rM-Yy0" secondAttribute="trailing" constant="6" id="hkJ-rb-hh1"/>
                             <constraint firstItem="BdO-rM-Yy0" firstAttribute="leading" secondItem="BpK-cV-tjV" secondAttribute="trailing" constant="8" symbolic="YES" id="kQd-nq-TqH"/>
                             <constraint firstItem="tw1-DR-3rt" firstAttribute="trailing" secondItem="vvh-8J-mb1" secondAttribute="trailing" id="qkJ-tW-kE6"/>
-                            <constraint firstItem="BpK-cV-tjV" firstAttribute="leading" secondItem="shT-q7-itG" secondAttribute="trailing" constant="22" id="x0q-Y4-Ggh"/>
+                            <constraint firstItem="shT-q7-itG" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="18" id="wYc-do-N4B"/>
                             <constraint firstItem="fSb-kn-Xvv" firstAttribute="top" secondItem="vvh-8J-mb1" secondAttribute="bottom" constant="5" id="yba-SH-TJK"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="btPush" destination="BdO-rM-Yy0" id="fiT-fX-axv"/>
                         <outlet property="cbPayloadPaths" destination="BpK-cV-tjV" id="EDA-wY-SSs"/>
+                        <outlet property="chbAutopush" destination="IaW-ap-TxA" id="RbO-jq-mOd"/>
                         <outlet property="consoleOutputBox" destination="sAu-QA-51e" id="qYE-IV-yJh"/>
                         <outlet property="lbUpdate" destination="N9x-lM-UME" id="WKj-CS-eNx"/>
                         <outlet property="progressBar" destination="vvh-8J-mb1" id="Ape-8v-BEB"/>

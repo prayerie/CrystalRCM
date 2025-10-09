@@ -54,6 +54,7 @@ enum TegraDeviceError: Error {
     case CantOpenIface(code: Int32)
     case IoDevConfFail(desc: String)
     case BadId
+    case ProbablyAlreadyInRcm
 }
 
 class TegraDevice {
@@ -200,7 +201,11 @@ class TegraDevice {
         
         if kr != kIOReturnSuccess {
             print("[error] ReadPipeTO failed with kr=\(kr) (0x\(String(kr, radix: 16)))")
-            throw TegraDeviceError.IoReadPipeError(desc: "[error] ReadPipeTO fail, error: \(kr)")
+            if (kr == -536854447) {
+                throw TegraDeviceError.ProbablyAlreadyInRcm
+            } else {
+                throw TegraDeviceError.IoReadPipeError(desc: "[error] ReadPipeTO fail, error: \(kr)")
+            }
         }
         
         print("[debug] read \(size) bytes...")

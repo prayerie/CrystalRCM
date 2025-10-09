@@ -5,6 +5,8 @@ extension Notification.Name {
     static let ProgressUpdate = Notification.Name("ProgressUpdate")
 }
 
+
+
 class ViewController: NSViewController {
     
     @IBOutlet var consoleOutputBox: NSTextView!
@@ -13,22 +15,53 @@ class ViewController: NSViewController {
     @IBOutlet var cbPayloadPaths: NSComboBox!
     @IBOutlet var btPush: NSButton!
     @IBOutlet var lbUpdate: NSTextField!
+    @IBOutlet var chbAutopush: NSButton!
     
     var connectedDevice:TegraDevice?
     var devices:[TegraDevice] = []
     var shutupWarn = false
+    var forceAllowPush = false
+    var canPush = false
+    var doAutopush = false
     
     private var inferredPayloadType: NXPayload = .generic
     private let recentPathsKey = "RecentPayloadPaths"
+    private let autopushKey = "AutoPushOn"
     private let maxRecentPaths = 5
     
     private let ver = "1.0.0"
     private let crystalrcmGh = "https://api.github.com/repos/prayerie/CrystalRCM/releases/latest"
 
+    // let the user force enable the push button
+    override func flagsChanged(with event: NSEvent) {
+        if event.modifierFlags.contains(.shift) {
+            forceAllowPush = true
+            self.btPush.isEnabled = true
+            return
+        }
+        if !canPush {
+            disablePushBtn()
+        }
+        forceAllowPush = false
+    }
+    
+    private func disablePushBtn() {
+        if !forceAllowPush {
+            btPush.isEnabled = false
+        }
+    }
+    
+    private func tryEnablePushBtn() {
+        if canPush {
+            btPush.isEnabled = true
+        }
+    }
     
     func addConsoleLine(line: String) {
         let msg: NSAttributedString = NSAttributedString(string: line + "\n")
-        consoleOutputBox.textStorage?.append(msg)
+        DispatchQueue.main.async {
+            self.consoleOutputBox.textStorage?.append(msg)
+        }
     }
     
     private func checkForUpdates() {
@@ -108,8 +141,11 @@ class ViewController: NSViewController {
             consoleOutputBox.usesAdaptiveColorMappingForDarkAppearance = true
         }
         
-
-        btPush.isEnabled = false // don't want any pushes before a payload is chosen
+        NSEvent.addLocalMonitorForEvents(matching: .flagsChanged) {
+                    self.flagsChanged(with: $0)
+                    return $0
+                }
+        disablePushBtn() // don't want any pushes before a payload is chosen
         
         cbPayloadPaths.removeAllItems() // remove annoying 'Item 1' 'Item 2' etc
         
@@ -120,18 +156,33 @@ class ViewController: NSViewController {
                 cbPayloadPaths.stringValue = paths[0]
             }
         }
+
+        let apOn = UserDefaults.standard.integer(forKey: autopushKey) as Int
+        chbAutopush.state = NSControl.StateValue(rawValue: apOn)
+        doAutopush = apOn == 1
         
-        
-        
+        btPush.toolTip = "Hold SHIFT to force allow push"
+        cbPayloadPaths.toolTip = "Path to payload binary"
         lbUpdate.isHidden = true
         checkForUpdates()
+        
+        if doAutopush && canPush {
+            go()
+        }
     }
     
     override func viewWillDisappear() {
         exit(0)
     }
 
-
+    
+    @IBAction func onAutopushToggle(_ sender: NSButton) {
+        setAutopushOn(chbAutopush.state.rawValue)
+        doAutopush = chbAutopush.state.rawValue == 1
+        if doAutopush && canPush {
+            go()
+        }
+    }
     
     @objc func onProgressUpdate(notification: NSNotification) {
         let p = notification.userInfo?["by"] as? Double ?? 0.0
@@ -143,7 +194,7 @@ class ViewController: NSViewController {
         
     }
     
-    @IBAction func onPushPress(_ sender: Any) {
+    private func go() {
         guard let device = devices.first(where: {
             $0.deviceInfo.vendorId == VID.RCM.rawValue &&
             $0.deviceInfo.productId == PID.RCM.rawValue
@@ -173,7 +224,7 @@ class ViewController: NSViewController {
         
         progressBar.increment(by: 5.0)
         addConsoleLine(line: "Loading payload: \(payloadPath)")
-        
+
         do {
             let payloadData = try Data(contentsOf: URL(string: "file://" + payloadPath)!)
             self.progressBar.doubleValue = 5.0
@@ -208,19 +259,22 @@ class ViewController: NSViewController {
                         self.statusImage.image = successImage
                     }
                 } catch let error as TegraDeviceError {
-                    self.progressBar.isHidden = true
+                    DispatchQueue.main.async { // todo separate function to reset prog bar oops
+                        self.progressBar.doubleValue = 0.0
+                        self.progressBar.isHidden = true
+                    }
                     if case .BadId = error {
-                        DispatchQueue.main.async {
-                            self.progressBar.doubleValue = 0.0
-                            self.warnUserBadId()
+                        
+                        self.showWarning(title: "Bad device ID.", body: "Device ID returned all zeroes. Please reboot RCM.")
+                    } else if case .ProbablyAlreadyInRcm = error {
+                        if !self.doAutopush {
+                            self.showWarning(title: "Bad device state.", body: "You have probably already launched a payload, or a previous launch got interrupted.\nPlease reboot RCM.")
+                        } else {
+                            self.addConsoleLine(line: "[warning] Auto-push is on, but push failed because the console is in an invalid state.")
                         }
                     }
                     if case .IoReadPipeError(let desc) = error {
-                        DispatchQueue.main.async {
-                            self.progressBar.doubleValue = 0.0
-                            self.addConsoleLine(line: "[error] \(desc)")
-                            self.warnUserBadConnPoss()
-                        }
+                        self.showWarning(title: "Error during `ReadPipeTO`.", body: "Couldn't read device ID; the connection is probably bad. Please try again with a different cable/USB port.")
                     }
                 } catch {
                     DispatchQueue.main.async {
@@ -232,6 +286,10 @@ class ViewController: NSViewController {
         } catch let error {
             addConsoleLine(line: "[error] Couldn't read payload file: \"\(error)\"")
         }
+    }
+    
+    @IBAction func onPushPress(_ sender: Any) {
+        go()
     }
     
     @objc func onPayloadTypeInferred(notification: NSNotification) {
@@ -257,7 +315,14 @@ class ViewController: NSViewController {
                 self.addConsoleLine(line: "RCM device connected.")
                 self.statusImage.image = READY
                 if !self.cbPayloadPaths.stringValue.isEmpty {
-                    self.btPush.isEnabled = true
+                    self.canPush = true // for hold shift logic...when stop holding shift check if bt can beenabled etc
+                    self.tryEnablePushBtn()
+                    if self.doAutopush {
+                        self.go()
+                    }
+                } else {
+                    self.canPush = false
+                    self.disablePushBtn()
                 }
             }
         }
@@ -267,7 +332,7 @@ class ViewController: NSViewController {
                 self.devices.append(device)
                 self.addConsoleLine(line: "Non-RCM Switch connected.")
                 if !self.shutupWarn {
-                    self.warnUser()
+                    self.showWarning(title: "Non-RCM switch detected.", body: "You have just connected a Nintendo Switch device which is not in RCM.")
                     self.shutupWarn = true
                 }
             }
@@ -287,9 +352,11 @@ class ViewController: NSViewController {
             if let index = self.devices.firstIndex(where: { $0.deviceInfo.id == id }) {
                 self.devices.remove(at: index)
                 self.addConsoleLine(line: "Disconnected")
+                self.progressBar.isHidden = true
                 self.statusImage.image = WAITING
                 self.connectedDevice = nil
-                self.btPush.isEnabled = false
+                self.disablePushBtn()
+                self.canPush = false
             }
         }
     }
@@ -331,14 +398,17 @@ class ViewController: NSViewController {
                 $0.deviceInfo.vendorId == VID.RCM.rawValue &&
                 $0.deviceInfo.productId == PID.RCM.rawValue
             }) {
-                btPush.isEnabled = true
+                tryEnablePushBtn()
             } else {
-                btPush.isEnabled = false
+                disablePushBtn()
             }
         }
     }
     
-
+    private func setAutopushOn(_ state: Int) {
+        UserDefaults.standard.set(state, forKey: autopushKey)
+        UserDefaults.standard.synchronize()
+    }
     
     private func addRecentPath(_ path: String) {
         var paths = UserDefaults.standard.array(forKey: recentPathsKey) as? [String] ?? []
@@ -354,40 +424,26 @@ class ViewController: NSViewController {
         UserDefaults.standard.set(paths, forKey: recentPathsKey)
         UserDefaults.standard.synchronize()
         
-        cbPayloadPaths.removeAllItems()
-        cbPayloadPaths.addItems(withObjectValues: paths)
-        cbPayloadPaths.stringValue = path
+        DispatchQueue.main.async {
+            self.cbPayloadPaths.removeAllItems()
+            self.cbPayloadPaths.addItems(withObjectValues: paths)
+            self.cbPayloadPaths.stringValue = path
+        }
     }
     
-    func warnUser() {
-        let alert = NSAlert()
-        alert.messageText = "Non-RCM switch detected."
-        alert.informativeText = "You have just connected a Nintendo Switch device which is not in RCM."
-        alert.addButton(withTitle: "OK")
-        alert.alertStyle = .warning
-        alert.icon = NSImage(named: NSImage.cautionName)
-        alert.runModal()
-    }
     
-    func warnUserBadId() {
-        let alert = NSAlert()
-        alert.messageText = "Bad device ID."
-        alert.informativeText = "Device ID returned all zeroes. Please reboot RCM."
-        alert.addButton(withTitle: "OK")
-        alert.alertStyle = .warning
-        alert.icon = NSImage(named: NSImage.cautionName)
-        alert.runModal()
+    func showWarning(title: String, body: String) {
+        DispatchQueue.main.async {
+            let alert = NSAlert()
+            alert.messageText = title
+            alert.informativeText = body
+            alert.addButton(withTitle: "OK")
+            alert.alertStyle = .warning
+            alert.icon = NSImage(named: NSImage.cautionName)
+            alert.runModal()
+        }
     }
-    
-    func warnUserBadConnPoss() {
-        let alert = NSAlert()
-        alert.messageText = "Error during `ReadPipeTO`."
-        alert.informativeText = "Couldn't read device ID; the connection is probably bad. Please try again with a different cable/USB port."
-        alert.addButton(withTitle: "OK")
-        alert.alertStyle = .warning
-        alert.icon = NSImage(named: NSImage.cautionName)
-        alert.runModal()
-    }
+
     
     override var representedObject: Any? {
         didSet {

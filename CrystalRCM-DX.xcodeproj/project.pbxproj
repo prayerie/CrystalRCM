@@ -18,6 +18,7 @@
 		4DF752BA27A6C1F1006FB12C /* StatusImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF752B927A6C1F1006FB12C /* StatusImage.swift */; };
 		61988F4B2E96958D0056E552 /* intermezzo.bin in Resources */ = {isa = PBXBuildFile; fileRef = 61988F4A2E96958D0056E552 /* intermezzo.bin */; };
 		61988F4F2E969F3F0056E552 /* USBDeviceSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 61988F4E2E969F3F0056E552 /* USBDeviceSwift */; };
+		61A7CA892E984432003575FE /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 61A7CA882E984432003575FE /* icon.icns */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		4DF752B427A6B70A006FB12C /* TegraDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TegraDevice.swift; sourceTree = "<group>"; };
 		4DF752B927A6C1F1006FB12C /* StatusImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusImage.swift; sourceTree = "<group>"; };
 		61988F4A2E96958D0056E552 /* intermezzo.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = intermezzo.bin; sourceTree = "<group>"; };
+		61A7CA872E984385003575FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		61A7CA882E984432003575FE /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +101,7 @@
 				4D10B5D127A605760080A523 /* Frameworks */,
 				4D187FA627A6145100EBAAA2 /* CrystalRCM-DX-Bridging-Header.h */,
 				61988F4A2E96958D0056E552 /* intermezzo.bin */,
+				61A7CA882E984432003575FE /* icon.icns */,
 			);
 			sourceTree = "<group>";
 		};
@@ -114,6 +118,7 @@
 		4DC4412127A4026E00CE0821 /* CrystalRCM-DX */ = {
 			isa = PBXGroup;
 			children = (
+				61A7CA872E984385003575FE /* Info.plist */,
 				4DC4412227A4026E00CE0821 /* AppDelegate.swift */,
 				4DC4412427A4026E00CE0821 /* ViewController.swift */,
 				4DC4412627A4026F00CE0821 /* Assets.xcassets */,
@@ -257,6 +262,7 @@
 			files = (
 				4DC4412727A4026F00CE0821 /* Assets.xcassets in Resources */,
 				61988F4B2E96958D0056E552 /* intermezzo.bin in Resources */,
+				61A7CA892E984432003575FE /* icon.icns in Resources */,
 				4DC4412A27A4026F00CE0821 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -473,7 +479,7 @@
 		4DC4414527A4026F00CE0821 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = Icon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = icon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "CrystalRCM-DX/CrystalRCM_DX.entitlements";
 				CODE_SIGN_STYLE = Automatic;
@@ -484,6 +490,7 @@
 					"\"$(SRCROOT)/CrystalRCM-DX.xcodeproj\"/**",
 					"/opt/local/include/libusb-1.0/**",
 				);
+				INFOPLIST_FILE = "CrystalRCM-DX/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = CrystalRCM;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -514,7 +521,7 @@
 		4DC4414627A4026F00CE0821 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = icon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "CrystalRCM-DX/CrystalRCM_DX.entitlements";
 				CODE_SIGN_STYLE = Automatic;
@@ -525,6 +532,7 @@
 					"\"$(SRCROOT)/CrystalRCM-DX.xcodeproj\"/**",
 					"/opt/local/include/libusb-1.0/**",
 				);
+				INFOPLIST_FILE = "CrystalRCM-DX/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = CrystalRCM;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
