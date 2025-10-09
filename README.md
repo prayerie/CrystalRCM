@@ -1,4 +1,4 @@
-![](banner.png)
+![](banner_new.png)
 
 **note: A native, much faster version is about to be released!**
 
