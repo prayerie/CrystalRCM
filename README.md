@@ -1,32 +1,29 @@
 ![](banner_new.png)
 
-**note: A native, much faster version is about to be released!**
+A native port of fusée-launcher frontend for macOS (Universal). **Supports macOS >= 10.12.**
 
-A simple fusee-launcher frontend for macOS (Universal). **Supports macOS >= 10.9.**
+It uses native IO libraries, so doesn't require any external downloads.
 
- It has libusb statically linked, so you don't need to install anything else to use it.
+All credit to Qriad who made the [original launcher](https://github.com/Qyriad/fusee-launcher) - this is just a Swift translation :-).
 
-All credit to Qriad who made the [original launcher](https://github.com/Qyriad/fusee-launcher) - this is merely a frontend.
 
-**Note: When closing, the application may hang on the dock, with no window visible. If this happens, hold Option, right click CrystalRCM on the dock, and Force Quit.** (I will fix this soon :) )
-
-## Usage (old)
+## Usage
 
 ![](ss1.png)
 
-Please note - the app will not work unless you move it outside of the distribution .dmg.
+Select a payload, and then press 'push'. You can also optionally automatically push on USB connection. A future release will allow the app to run in the background.
+
+The "Push!" button will be disabled if no payload is selected, or if a device in RCM is not detected. To force an attempt, hold shift, which will temporarily override and enable the push button.
+
+Please note - the app may not work unless you move it outside of the distribution .dmg.
+
+## Building
+
+Currently, it will be a bit annoying to build as there are some hardcoded paths in the Xcode project. However, other than that, it should be as simple as opening the project in Xcode and building for yourself.
 
 ## How to create (old)
-.app builds can be found on the release page. You can also build from the repo, if you wish.
 
-1. Make sure you have Xcode installed.
-2. Clone the [libusb repository](https://github.com/libusb/libusb).
-3. Build the libusb dynamic library according to [their instructions](https://github.com/libusb/libusb/wiki/FAQ#does-libusb-support-apple-sillicon-based-mac).
-4. Rename the produced `libusb-....dylib` to `libusb.lib`.
-5. Move `libusb.lib` to the `assets/` folder of this repository.
-6. `chmod +x create_app.sh`
-7. `./create_app.sh`
-8. You're done - the app is located in the `dist` subfolder.
+If you wish to build the previous Python release, please switch to the "old" branch and follow the instructions there.
 
 ## Contact
 
