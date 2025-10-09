@@ -9,6 +9,16 @@ All credit to Qriad who made the [original launcher](https://github.com/Qyriad/f
 
 ## Usage
 
+**Issues opening unsigned applications:**
+
+Below is an excerpt from switch.hacks.guide concerning how to open unsigned applications downloaded from the internet:
+
+
+- *macOS may warn you about the application being downloaded from the internet. To get around this warning, hold the control key while clicking the application, then click Open and Open again.*
+- ***macOS Sequoia users:** Apple has changed how unsigned applications from the internet are opened. You will need to follow the instructions [here](https://wiki.hacks.guide/wiki/Open_unsigned_applications_on_macOS_Sequoia) to open the application.*
+
+Please follow the above instructions if you cannot open the app.
+
 ![](ss1.png)
 
 Select a payload, and then press 'push'. You can also optionally automatically push on USB connection. A future release will allow the app to run in the background.
