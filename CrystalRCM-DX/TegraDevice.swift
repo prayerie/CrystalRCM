@@ -243,7 +243,7 @@ class TegraDevice {
         var chunkCount = 0
         
         while !remainingData.isEmpty {
-            NotificationCenter.default.post(name: .ProgressUpdate, object: ["by": 10.0])
+            
             let dataToTransmit = min(remainingData.count, packetSize)
             let chunk = Array(remainingData.prefix(dataToTransmit))
             remainingData = Array(remainingData.dropFirst(dataToTransmit))
@@ -257,6 +257,7 @@ class TegraDevice {
     
     func switchToHighBuffer() throws {
         print("[debug] Current buffer before switch: \(currentBuffer) at 0x\(String(getCurrentBufferAddress(), radix: 16))")
+        setProgressTo(progress: 75.0)
         if getCurrentBufferAddress() != COPY_BUFFER_ADDRESSES[1] {
             print("[debug] Switching to high buffer by writing padding")
             let padding = [UInt8](repeating: 0, count: 0x1000)
@@ -282,7 +283,7 @@ class TegraDevice {
             throw TegraDeviceError.DevIoIfaceNotFound
         }
         
-        
+        setProgressTo(progress: 80.0)
         let length = STACK_END - getCurrentBufferAddress()
         print("[debug] Triggering vulnerability with length=0x\(String(length, radix: 16)) (STACK_END=0x\(String(STACK_END, radix: 16)) - current_buffer=0x\(String(getCurrentBufferAddress(), radix: 16)))")
         
@@ -305,11 +306,16 @@ class TegraDevice {
         print("[debug] DeviceRequestTO returned kr=\(kr) (0x\(String(kr, radix: 16)))")
         
         if kr != kIOReturnSuccess {
-            
+            setProgressTo(progress: 100.0)
             return
         }
         
         throw TegraDeviceError.RequestError(desc: "[error] Vulnerability trigger unexpectedly succeeded, the exploit likely failed.")
+    }
+    
+    func setProgressTo(progress: Double) {
+        let p:[String: Double] = ["by": progress]
+        NotificationCenter.default.post(name: .ProgressUpdate, object: self, userInfo: p)
     }
     
     func pushPayload(payloadData: Data, intermezzoPath: String) throws {
@@ -318,7 +324,7 @@ class TegraDevice {
         
         let payloadType = inferPayloadType(payload: payloadData)
         NotificationCenter.default.post(name: .PayloadTypeDetected, object: payloadType.rawValue)
-        
+        setProgressTo(progress: 10.0)
         
         guard let intermezzoData = try? Data(contentsOf: URL(fileURLWithPath: intermezzoPath)) else {
             print("Could not find intermezzo.bin at: \(intermezzoPath)")
@@ -374,7 +380,7 @@ class TegraDevice {
         let paddingToAlign = 0x1000 - (payloadLength % 0x1000)
         payload += [UInt8](repeating: 0, count: paddingToAlign)
         
-        
+        setProgressTo(progress: 40.0)
         if payload.count > length {
             let sizeOver = payload.count - length
             print("[error] Payload is too large to be submitted via RCM. (\(sizeOver) bytes larger than max).")

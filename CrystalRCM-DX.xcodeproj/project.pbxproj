@@ -39,7 +39,7 @@
 
 /* Begin PBXFileReference section */
 		4D187FA627A6145100EBAAA2 /* CrystalRCM-DX-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CrystalRCM-DX-Bridging-Header.h"; sourceTree = "<group>"; };
-		4DC4411F27A4026E00CE0821 /* CrystalRCM-DX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CrystalRCM-DX.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4DC4411F27A4026E00CE0821 /* CrystalRCM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrystalRCM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DC4412227A4026E00CE0821 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4DC4412427A4026E00CE0821 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4DC4412627A4026F00CE0821 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -104,7 +104,7 @@
 		4DC4412027A4026E00CE0821 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4DC4411F27A4026E00CE0821 /* CrystalRCM-DX.app */,
+				4DC4411F27A4026E00CE0821 /* CrystalRCM.app */,
 				4DC4413027A4026F00CE0821 /* CrystalRCM-DXTests.xctest */,
 				4DC4413A27A4026F00CE0821 /* CrystalRCM-DXUITests.xctest */,
 			);
@@ -162,7 +162,7 @@
 				61988F4E2E969F3F0056E552 /* USBDeviceSwift */,
 			);
 			productName = "CrystalRCM-DX";
-			productReference = 4DC4411F27A4026E00CE0821 /* CrystalRCM-DX.app */;
+			productReference = 4DC4411F27A4026E00CE0821 /* CrystalRCM.app */;
 			productType = "com.apple.product-type.application";
 		};
 		4DC4412F27A4026F00CE0821 /* CrystalRCM-DXTests */ = {
@@ -208,6 +208,9 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
+				KnownAssetTags = (
+					New,
+				);
 				LastSwiftUpdateCheck = 1320;
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
@@ -334,6 +337,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				ASSETCATALOG_COMPILER_SKIP_APP_STORE_DEPLOYMENT = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -393,6 +399,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -401,6 +408,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "";
+				"ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES[sdk=*]" = "";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				ASSETCATALOG_COMPILER_SKIP_APP_STORE_DEPLOYMENT = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -453,6 +465,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
@@ -460,7 +473,7 @@
 		4DC4414527A4026F00CE0821 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Icon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "CrystalRCM-DX/CrystalRCM_DX.entitlements";
 				CODE_SIGN_STYLE = Automatic;
@@ -485,8 +498,9 @@
 					"$(PROJECT_DIR)/CrystalRCM-DX",
 				);
 				MARKETING_VERSION = 1.0;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = cafe.moya.CrystalRCM;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = CrystalRCM;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/prayerie/crystalrcm-dx/CrystalRCM-DX-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -526,7 +540,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = cafe.moya.CrystalRCM;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = CrystalRCM;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/prayerie/crystalrcm-dx/CrystalRCM-DX-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

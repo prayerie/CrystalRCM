@@ -134,12 +134,12 @@ class ViewController: NSViewController {
 
     
     @objc func onProgressUpdate(notification: NSNotification) {
-        let icnrBy = notification.object as? Double ?? 0.0
-        
+        let p = notification.userInfo?["by"] as? Double ?? 0.0
         DispatchQueue.main.async {
             self.progressBar.isHidden = false
-            self.progressBar.increment(by: icnrBy)
+            self.progressBar.doubleValue = p
         }
+        
         
     }
     
@@ -176,7 +176,7 @@ class ViewController: NSViewController {
         
         do {
             let payloadData = try Data(contentsOf: URL(string: "file://" + payloadPath)!)
-            
+            self.progressBar.doubleValue = 5.0
             guard let intermezzoPath = Bundle.main.path(forResource: "intermezzo", ofType: "bin") else {
                 addConsoleLine(line: "[error] intermezzo.bin is missing. Please redownload CrystalRCM.")
                 return
@@ -211,14 +211,17 @@ class ViewController: NSViewController {
                 } catch let error as TegraDeviceError {
                     if case .BadId = error {
                         DispatchQueue.main.async {
+                            self.progressBar.doubleValue = 0.0
                             self.warnUserBadId()
                         }
                     }
                     DispatchQueue.main.async {
+                        self.progressBar.doubleValue = 0.0
                         self.addConsoleLine(line: "[error] \(error)")
                     }
                 } catch {
                     DispatchQueue.main.async {
+                        self.progressBar.doubleValue = 0.0
                         self.addConsoleLine(line: "[fatal] \(error)")
                     }
                 }
