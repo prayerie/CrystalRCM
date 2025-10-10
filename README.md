@@ -1,6 +1,6 @@
 ![](banner_new.png)
 
-A native port of fusée-launcher frontend for macOS (Universal). **Supports macOS >= 10.12.**
+A native port of fusée-launcher with a GUI frontend for macOS (Universal). **Supports macOS >= 10.12.**
 
 It uses native IO libraries, so doesn't require any external downloads.
 
