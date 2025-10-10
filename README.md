@@ -4,7 +4,7 @@ A native port of fusée-launcher with a GUI frontend for macOS (Universal). **Su
 
 It uses native IO libraries, so doesn't require any external downloads.
 
-All credit to Qyriad who made the [original launcher](https://github.com/Qyriad/fusee-launcher) - this is just a Swift translation :-).
+All credit to Qyriad who made the [original launcher](https://github.com/Qyriad/fusee-launcher) (dead link) - this is just a Swift translation :-).
 
 
 ## Usage
