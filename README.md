@@ -1,10 +1,10 @@
 ![](banner_new.png)
 
-A native port of fusée-launcher with a GUI frontend for macOS (Universal). **Supports OS X 12 Sierra and up.**
+A native port of fusée-launcher with a GUI frontend for macOS (Universal). **Supports macOS 10.12 Sierra and up.**
 
 It uses native IO libraries, so doesn't require any external downloads.
 
-All credit to Qyriad who made the [original launcher](https://github.com/Qyriad/fusee-launcher) (dead link) - this is just a Swift translation :-).
+All credit to Qyriad who made the [original launcher](https://github.com/Qyriad/fusee-launcher) (**dead link**) - this is just a Swift translation or rewrite :-).
 
 
 ## Usage
@@ -15,7 +15,7 @@ Below is an excerpt from switch.hacks.guide concerning how to open unsigned appl
 
 
 - *macOS may warn you about the application being downloaded from the internet. To get around this warning, hold the control key while clicking the application, then click Open and Open again.*
-- ***macOS Sequoia users:** Apple has changed how unsigned applications from the internet are opened. You will need to follow the instructions [here](https://wiki.hacks.guide/wiki/Open_unsigned_applications_on_macOS_Sequoia) to open the application.*
+- ***macOS Sequoia users (and up):** Apple has changed how unsigned applications from the internet are opened. You will need to follow the instructions [here](https://wiki.hacks.guide/wiki/Open_unsigned_applications_on_macOS_Sequoia) to open the application.*
 
 Please follow the above instructions if you cannot open the app.
 
@@ -31,7 +31,7 @@ Please note - the app may not work unless you move it outside of the distributio
 
 Currently, it will be a bit annoying to build as there are some hardcoded paths in the Xcode project. However, other than that, it should be as simple as opening the project in Xcode and building for yourself.
 
-## How to create (old)
+## How to build (old)
 
 If you wish to build the previous Python release, please switch to the "old" branch and follow the instructions there.
 
