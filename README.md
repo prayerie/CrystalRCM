@@ -6,6 +6,8 @@ It uses native IO libraries, so doesn't require any external downloads.
 
 All credit to Qyriad who made the [original launcher](https://github.com/Qyriad/fusee-launcher) (dead link) - this is just a Swift translation :-).
 
+**note**  there has been a report that paths containing spaces are problematic - apologies for this, will be fixed asap, but in the meantime if you experience this, ensure the payload is not in any folder containing spaces
+
 
 ## Usage
 
