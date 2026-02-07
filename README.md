@@ -40,3 +40,9 @@ If you wish to build the previous Python release, please switch to the "old" bra
 ## Contact
 
 If you run into any issues or have any questions, feel free to open an issue here, or contact me on Discord: @prayerie.
+
+## Donation
+
+I do not like e-begging but any donation of any amount would be very much appreciated if you find this useful (if people do donate then I'll make a new version with an about page listing donors). Currently I don't own a macbook so I have to use an extremely slow VM of macOS to work on this software.
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/T6T61TSBWM)
